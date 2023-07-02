@@ -10,13 +10,21 @@
     >
       최대 3개의 캐릭터에 투표해주세요.
     </div>
-    <div class="flex justify-center items-center flex-col mt-[0.5vh]">
-      <div
-        class="w-[78vw] h-[68vh] py-[1vh] px-[2vw] grid grid-cols-3 grid-rows-5 rounded-[5vw] bg-[#FDFFE3]"
-      >
-        <div v-for="character in characters" :key="character">
-          <CharacterBox :character="character"></CharacterBox>
+    <div class="w-full flex justify-center gap-[2.7%]">
+      <div class="w-[5.8%]">
+        <LeftArrow width="100%" :onStroke="true"></LeftArrow>
+      </div>
+      <div class="flex justify-center items-center flex-col mt-[0.5vh]">
+        <div
+          class="w-[78vw] h-[68vh] py-[1vh] px-[2vw] grid grid-cols-3 grid-rows-5 rounded-[5vw] bg-[#FDFFE3]"
+        >
+          <div v-for="character in characters" :key="character">
+            <CharacterBox :character="character"></CharacterBox>
+          </div>
         </div>
+      </div>
+      <div class="w-[5.8%]">
+        <RightArrow width="100%" :onStroke="true"></RightArrow>
       </div>
     </div>
     <div class="w-full h-[10vh] flex px-[10vw]">
@@ -34,15 +42,23 @@
           width="40vw"
           aspect-ratio="42/15"
           text="투표하기"
+          @onClickEvent="onModal = true"
         ></VoteButton>
       </div>
+    </div>
+
+    <div v-if="onModal" class="absolute top-0">
+      <Modal @close="onClickClose" />
     </div>
   </main>
 </template>
 
 <script>
+import Modal from "../components/Modal.vue";
+import RightArrow from "../assets/icon/RightArrow.vue";
 import VoteButton from "../components/voteButton.vue";
 import CharacterBox from "../components/CharacterBox.vue";
+import LeftArrow from "../assets/icon/LeftArrow.vue";
 import RingIcon from "../assets/RingIcon.png";
 import TagIcon from "../assets/TagIcon.png";
 import NoticeIcon from "../assets/NoticeIcon.png";
@@ -55,6 +71,8 @@ export default {
       ringIcon: RingIcon,
       tagIcon: TagIcon,
       noticeIcon: NoticeIcon,
+
+      onModal: false,
 
       characters: [
         { name: "꾸버", img: "" },
@@ -81,6 +99,12 @@ export default {
       ],
     };
   },
-  components: { VoteButton, CharacterBox },
+
+  methods: {
+    onClickClose() {
+      this.onModal = false;
+    },
+  },
+  components: { VoteButton, CharacterBox, Modal, LeftArrow, RightArrow },
 };
 </script>
