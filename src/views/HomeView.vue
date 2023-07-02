@@ -38,7 +38,11 @@
           <span v-html="makeTitle"></span>
         </div>
         <div class="flex-1 flex items-center">
-          <VoteButton width="58vw" text="굿즈만들러 가기"></VoteButton>
+          <VoteButton
+            width="58vw"
+            aspect-ratio="62/17"
+            text="굿즈만들러 가기"
+          ></VoteButton>
         </div>
       </div>
     </div>
