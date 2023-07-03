@@ -1,5 +1,6 @@
 <template>
   <main>
+    <TitleBox></TitleBox>
     <div
       class="font-miwon -mt-[1vh] text-[#FFDA22] flex justify-center items-center flex-col text-center text-[3.8vw]"
       :style="{
@@ -54,6 +55,7 @@
 </template>
 
 <script>
+import TitleBox from "../components/TitleBox.vue";
 import Modal from "../components/Modal.vue";
 import RightArrow from "../assets/icon/RightArrow.vue";
 import VoteButton from "../components/voteButton.vue";
@@ -62,6 +64,7 @@ import LeftArrow from "../assets/icon/LeftArrow.vue";
 import RingIcon from "../assets/RingIcon.png";
 import TagIcon from "../assets/TagIcon.png";
 import NoticeIcon from "../assets/NoticeIcon.png";
+import { Character } from "../service/Repository";
 
 export default {
   data() {
@@ -74,37 +77,33 @@ export default {
 
       onModal: false,
 
-      characters: [
-        { name: "꾸버", img: "" },
-        { name: "하트버니", img: "" },
-        { name: "킹냥", img: "" },
-        { name: "먹보", img: "" },
-        { name: "아라찌", img: "" },
-        { name: "띠라노", img: "" },
-        { name: "베어", img: "" },
-        { name: "미애옹", img: "" },
-        { name: "미애옹", img: "" },
-        { name: "미애옹", img: "" },
-        { name: "미애옹", img: "" },
-        { name: "미애옹", img: "" },
-        { name: "미애옹", img: "" },
-        { name: "미애옹", img: "" },
-        { name: "미애옹", img: "" },
-      ],
+      characters: { Type: Array },
 
-      selectCharacters: [
-        { name: "꾸버", img: "" },
-        { name: "하트버니", img: "" },
-        { name: "킹냥", img: "" },
-      ],
+      selectCharacters: [],
     };
+  },
+
+  mounted() {
+    this.fetch();
   },
 
   methods: {
     onClickClose() {
       this.onModal = false;
     },
+
+    async fetch() {
+      const characters = await Character.GetAllCharacter();
+      this.characters = characters.data;
+    },
   },
-  components: { VoteButton, CharacterBox, Modal, LeftArrow, RightArrow },
+  components: {
+    VoteButton,
+    CharacterBox,
+    Modal,
+    LeftArrow,
+    RightArrow,
+    TitleBox,
+  },
 };
 </script>

@@ -1,5 +1,6 @@
 <template>
   <main>
+    <TitleBox></TitleBox>
     <div
       class="font-miwon text-white flex justify-center items-center flex-col"
       :style="{
@@ -7,7 +8,7 @@
         '-webkit-text-stroke': '0.4vw black',
       }"
     >
-      <div class="w-full text-center text-[8.3vw]">루키프로젝트 선발전</div>
+      <div class="w-full text-center text-[8.3vw]">{{ service.sub_title }}</div>
     </div>
     <div
       class="text-[4.2vw] mt-[12.5vh] flex justify-center items-center flex-col gap-[7.5vh]"
@@ -51,13 +52,28 @@
 
 <script>
 import VoteButton from "../components/voteButton.vue";
+import TitleBox from "../components/TitleBox.vue";
+import { Service } from "../service/Repository";
 export default {
   data() {
     return {
+      service: null,
       voteTitle: "지금 바로<br>당신의 캐릭터에게<br>투표하세요!",
       makeTitle: "당신이 뽑은 캐릭터로<br>굿즈를 만들어 보세요.",
     };
   },
-  components: { VoteButton },
+
+  mounted() {
+    this.fetch();
+  },
+
+  methods: {
+    async fetch() {
+      const service = await Service.GetDocumentSetting();
+      this.service = service.data;
+      console.log(this.service);
+    },
+  },
+  components: { VoteButton, TitleBox },
 };
 </script>
