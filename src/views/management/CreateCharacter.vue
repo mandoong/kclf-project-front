@@ -32,28 +32,28 @@
 
       <div class="flex-1">
         <div
-          v-if="fileList.length > 0"
-          class="border-2 border-gray-200 w-full rounded-lg mt-10 p-4"
-        >
-          <div class="mb-1" v-for="file in fileList" :key="file">
-            {{ file.name }}
-          </div>
-        </div>
-        <div
-          v-if="fileList.length > 0"
+          v-if="fileList.length"
           class="border-2 border-gray-200 w-full rounded-lg grid grid-cols-5 gap-2 mt-10 p-2"
         >
           <div
             class="border-4 rounded-lg aspect-square"
-            v-for="url in previewUrls"
-            :key="url"
+            :class="
+              titleImage.name === file.file.name ? 'border-yellow-400' : ''
+            "
+            @click="titleImage = file.file"
+            v-for="file in previewUrls"
+            :key="file"
           >
             <img
               class="w-full h-full object-contain object-center"
-              :src="url"
+              :src="file.url"
               alt="미리 보기 이미지"
             />
           </div>
+        </div>
+        <div class="ml-4 mt-4">
+          노란색 테두리 이미지가 대표 이지미가 됩니다.<br />이미지를 클릭하여
+          대표 이미지를 설정하세요.
         </div>
       </div>
       <div class="w-full h-20 flex justify-center">
@@ -71,19 +71,22 @@
 
 <script>
 import Subtitle from "../../components/Subtitle.vue";
+import { Character } from "../../service/Repository";
 export default {
   data() {
     return {
       characterName: "",
       fileList: [],
       previewUrls: [],
+      titleImage: null,
     };
   },
   methods: {
     onChangeInputFile(e) {
       const files = e.target.files;
-      console.log(files);
+
       this.fileList = files;
+      this.titleImage = files[0];
 
       this.previewUrls = [];
 
@@ -93,7 +96,7 @@ export default {
 
         reader.onload = (e) => {
           const url = e.target.result;
-          this.previewUrls.push(url);
+          this.previewUrls.push({ file, url });
         };
 
         reader.readAsDataURL(file);
@@ -109,7 +112,25 @@ export default {
       this.characterName = name;
     },
 
-    onClickRegisterCharacter() {},
+    async onClickRegisterCharacter() {
+      const formData = new FormData();
+      formData.append("file", this.titleImage);
+      formData.append("name", this.characterName);
+
+      const character = await Character.CreateCharacter(formData);
+      console.log(this.fileList[0]);
+
+      if (character.status === 201) {
+        const imageData = new FormData();
+        const id = character.data.id;
+        for (const file of this.fileList) {
+          if (file.name !== this.titleImage.name) {
+            imageData.append("files", file);
+          }
+        }
+        await Character.UploadCharacterImages(id, imageData);
+      }
+    },
   },
   components: { Subtitle },
 };

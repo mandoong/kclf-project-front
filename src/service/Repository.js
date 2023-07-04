@@ -13,7 +13,7 @@ export const Character = {
       .catch((err) => err);
   },
 
-  GetAllCharacter: async (formData) => {
+  CreateCharacter: async (formData) => {
     return API.post(`/character/create`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",

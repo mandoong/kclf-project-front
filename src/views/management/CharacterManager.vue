@@ -15,7 +15,7 @@
           class="h-8 truncate"
           v-for="item in characters"
           :key="item"
-          @click="$router.push(`/manager/character/${item.id}`)"
+          @click="$router.push(`/_admin/character/${item.id}`)"
         >
           <td class="px-4">{{ item.id }}</td>
           <td class="px-4">{{ item.name }}</td>

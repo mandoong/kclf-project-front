@@ -72,7 +72,7 @@ export default {
         },
         {
           title: "문서",
-          option: [{ name: "문서 편집", href: "document", img: "" }],
+          option: [{ name: "문서 편집", href: "/_admin/document", img: "" }],
         },
         {
           title: "이벤트",

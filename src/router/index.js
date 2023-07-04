@@ -28,6 +28,11 @@ const router = createRouter({
       name: "voteResult",
       component: VoteResultView,
     },
+
+    {
+      path: "/_admin",
+      redirect: "/_admin/character",
+    },
     {
       path: "/_admin",
       name: "manager",
@@ -55,6 +60,7 @@ const router = createRouter({
         },
       ],
     },
+
     {
       path: "/login",
       name: "login",

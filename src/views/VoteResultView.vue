@@ -41,7 +41,7 @@
     <div class="w-full h-[78vh] px-[5%] mt-[3%]">
       <div class="w-full h-full grid grid-rows-5">
         <div
-          v-for="item in characters"
+          v-for="(item, i) in characters"
           :key="item"
           class="relative flex items-center flex-1 w-full"
         >
@@ -51,15 +51,33 @@
           <div
             class="absolute w-full h-full flex items-center pl-[20%] gap-[5%]"
           >
-            <div
-              class="bg-[#FDFFE3] h-[20%]"
-              :style="{
-                width: `${(item.vote_count / count) * 100 + 10}%`,
-              }"
-            ></div>
-            <div class="text-[3.5vw] w-[15%] font-tmon text-[#FDFFE3] top-0">
-              {{ ((item.vote_count / count) * 100).toFixed() }} %
-            </div>
+            <Transition
+              appear
+              enter-from-class="opacity-0 -translate-x-[50%]"
+              enter-active-class="transition-all duration-500"
+            >
+              <div
+                class="bg-[#FDFFE3] h-[20%]"
+                :style="{
+                  width: `${(item.vote_count / count) * 100 + 10}%`,
+                  transitionDelay: `${i * 100}ms`,
+                }"
+              ></div>
+            </Transition>
+            <Transition
+              appear
+              enter-from-class="opacity-0 -translate-x-[50%]"
+              enter-active-class="transition-all duration-500"
+            >
+              <div
+                class="text-[3.5vw] w-[15%] font-tmon text-[#FDFFE3] top-0"
+                :style="{
+                  transitionDelay: `${i * 100 + 300}ms`,
+                }"
+              >
+                {{ ((item.vote_count / count) * 100).toFixed() }} %
+              </div>
+            </Transition>
           </div>
         </div>
       </div>
