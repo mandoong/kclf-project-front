@@ -3,8 +3,8 @@
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     :width="width"
-    :height="height"
-    viewBox="0 0 392 125"
+    height="126"
+    viewBox="0 0 522 126"
   >
     <defs>
       <linearGradient
@@ -19,10 +19,10 @@
       </linearGradient>
     </defs>
     <rect
-      id="사각형_5"
-      data-name="사각형 5"
-      width="392"
-      height="125"
+      id="사각형_3"
+      data-name="사각형 3"
+      width="522"
+      height="126"
       rx="41"
       fill="url(#linear-gradient)"
     />

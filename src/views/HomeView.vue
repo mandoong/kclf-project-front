@@ -1,51 +1,67 @@
 <template>
   <main>
     <TitleBox></TitleBox>
-    <div
-      class="font-miwon text-white flex justify-center items-center flex-col"
-      :style="{
-        textShadow: '0.5vw 0.5vw 6px #000000',
-        '-webkit-text-stroke': '0.4vw black',
-      }"
-    >
-      <div class="w-full text-center text-[8.3vw]">{{ service.sub_title }}</div>
-    </div>
-    <div
-      class="text-[4.2vw] mt-[12.5vh] flex justify-center items-center flex-col gap-[7.5vh]"
+    <Transition
+      appear
+      enter-from-class="opacity-0 translate-y-10"
+      enter-active-class="transition-all duration-500"
     >
       <div
-        class="w-[78vw] aspect-[42/23] rounded-[5vw] bg-[#FDFFE3] flex p-[1vh] items-center flex-col gap-[1vh]"
+        v-if="service"
+        class="font-miwon text-white flex justify-center items-center flex-col mt-[0.3vh] delay-300"
+        :style="{
+          textShadow: '0.6vw 0.6vw 4px #000000',
+          '-webkit-text-stroke': '0.2vw black',
+        }"
       >
-        <div
-          class="w-[40vw] flex-1 flex items-center justify-center font-tmon text-center break-words"
-        >
-          <span v-html="voteTitle"></span>
-        </div>
-        <div class="flex-1">
-          <VoteButton
-            width="58vw"
-            aspect-ratio="62/17"
-            text="투표하러 가기"
-            @on-click-event="$router.push('/vote')"
-          ></VoteButton>
+        <div class="w-full text-center text-[8.3vw]">
+          {{ service.subtitle }}
         </div>
       </div>
-      <div
-        class="w-[78vw] aspect-[42/23] rounded-[5vw] bg-[#FDFFE3] flex p-[1vh] items-center flex-col gap-[1vh]"
+    </Transition>
+    <div v-if="!service" class="w-full text-center h-[7.2vh]"></div>
+    <div
+      class="text-[3.5vw] mt-[15.2vh] leading-[4.5vw] flex justify-center items-center flex-col gap-[7.5vh]"
+    >
+      <TransitionGroup
+        appear
+        enter-from-class="opacity-0 translate-y-10"
+        enter-active-class="transition-all duration-500"
       >
         <div
-          class="w-[40vw] flex-1 flex items-center justify-center font-tmon text-center break-words"
+          class="w-[59vw] aspect-[64/42] rounded-[5vw] bg-[#FDFFE3] flex p-[1vh] items-center flex-col"
         >
-          <span v-html="makeTitle"></span>
+          <div
+            class="w-[40vw] flex-1 flex items-center justify-center font-tmon text-center break-words"
+          >
+            <span v-html="voteTitle"></span>
+          </div>
+          <div class="flex-1">
+            <VoteButton
+              width="50vw"
+              aspect-ratio="11/3"
+              text="투표하러 가기"
+              @on-click-event="$router.push('/vote')"
+            ></VoteButton>
+          </div>
         </div>
-        <div class="flex-1 flex items-center">
-          <VoteButton
-            width="58vw"
-            aspect-ratio="62/17"
-            text="굿즈만들러 가기"
-          ></VoteButton>
+        <div
+          class="w-[59vw] aspect-[64/42] rounded-[5vw] bg-[#FDFFE3] flex p-[1vh] items-center flex-col"
+        >
+          <div
+            class="w-[40vw] flex-1 flex items-center justify-center font-tmon text-center break-words"
+          >
+            <span v-html="makeTitle"></span>
+          </div>
+          <div class="flex-1 flex items-center">
+            <VoteButton
+              width="50vw"
+              aspect-ratio="11/3"
+              text="투표현황 보러가기"
+            ></VoteButton>
+          </div>
         </div>
-      </div>
+      </TransitionGroup>
     </div>
   </main>
 </template>
@@ -59,7 +75,7 @@ export default {
     return {
       service: null,
       voteTitle: "지금 바로<br>당신의 캐릭터에게<br>투표하세요!",
-      makeTitle: "당신이 뽑은 캐릭터로<br>굿즈를 만들어 보세요.",
+      makeTitle: "TOP 5 캐릭터를<br>만나보세요!",
     };
   },
 
@@ -71,7 +87,6 @@ export default {
     async fetch() {
       const service = await Service.GetDocumentSetting();
       this.service = service.data;
-      console.log(this.service);
     },
   },
   components: { VoteButton, TitleBox },

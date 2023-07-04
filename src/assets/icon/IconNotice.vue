@@ -2,10 +2,10 @@
   <svg
     xmlns="http://www.w3.org/2000/svg"
     :width="width"
-    :height="height"
+    :height="width"
     viewBox="0 0 39 39"
   >
-    <g id="그룹_1" data-name="그룹 1" transform="translate(-309 -463)">
+    <g id="그룹_39" data-name="그룹 39" transform="translate(-309 -463)">
       <circle
         id="타원_20"
         data-name="타원 20"
@@ -13,14 +13,17 @@
         cy="19.5"
         r="19.5"
         transform="translate(309 463)"
-        fill="#fcff6e"
+        fill="#ffda22"
       />
-      <path
-        id="패스_55"
-        data-name="패스 55"
-        d="M3.555-22.05h-6.81l1.02,19.59h4.74ZM3.225,4.2V-.3H-3.1V5.76H1.4C2.625,5.76,3.225,5.25,3.225,4.2Z"
+      <text
+        id="_"
+        data-name="?"
         transform="translate(329 490)"
-      />
+        font-size="30"
+        class="font-tmon"
+      >
+        <tspan x="-8" y="0">?</tspan>
+      </text>
     </g>
   </svg>
 </template>

@@ -1,14 +1,53 @@
 <template>
-  <div
-    class="font-miwon text-white flex justify-center items-center flex-col gap-1"
-    :style="{
-      textShadow: '0.8vw 0.6vw 6px #000000',
-      '-webkit-text-stroke': '0.4vw black',
-    }"
-  >
-    <div class="w-full text-center mt-[3.8vh] text-[9.3vw]">
-      캐릭터 라이선싱 페어
+  <main>
+    <div
+      class="font-miwon text-white flex justify-center items-center flex-col gap-1"
+      :style="{
+        textShadow: '0.6vw 0.6vw 4px #000000',
+        '-webkit-text-stroke': '0.2vw black',
+      }"
+    >
+      <TransitionGroup
+        appear
+        enter-from-class="opacity-0 translate-y-10"
+        enter-active-class="transition-all duration-500"
+      >
+        <div v-if="service" class="w-full text-center mt-[5vh] text-[8.3vw]">
+          {{ service.title }}
+        </div>
+        <div
+          v-if="service"
+          class="w-full delay-100 -mt-[1vh] text-center text-[8.3vw]"
+        >
+          {{ service.year }}
+        </div>
+      </TransitionGroup>
     </div>
-    <div class="w-full -mt-[1.8vh] text-center text-[9.3vw]">2023</div>
-  </div>
+
+    <div v-if="!service">
+      <div class="w-full mt-[5vh] h-[23vw]"></div>
+    </div>
+  </main>
 </template>
+
+<script>
+import { Service } from "../service/Repository";
+
+export default {
+  data() {
+    return {
+      service: null,
+    };
+  },
+  mounted() {
+    this.fetch();
+  },
+
+  methods: {
+    async fetch() {
+      const service = await Service.GetDocumentSetting();
+      this.service = service.data;
+    },
+  },
+};
+</script>

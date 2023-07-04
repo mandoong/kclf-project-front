@@ -2,7 +2,7 @@ import { API } from "./API";
 
 export const Character = {
   GetAllCharacter: async (page) => {
-    return API.get(`/character/all?page=${page}`)
+    return API.get(`/character/page?page=${page}`)
       .then((res) => res)
       .catch((err) => err);
   },

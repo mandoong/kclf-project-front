@@ -1,21 +1,31 @@
 <template>
   <main class="relative w-full h-full flex justify-center items-center">
-    <img src="../assets/RingIcon.png" class="absolute w-[80%]" />
-    <img src="../assets/TagIcon.png" class="absolute w-[92%] bottom-[28%]" />
+    <IconNotice
+      width="3.7vw"
+      class="absolute top-[1vh] right-[2vw] z-10"
+      @click="$emit('onModal')"
+    ></IconNotice>
     <img
-      src="https://kclf-images.s3.ap-northeast-2.amazonaws.com/character/25_1688376767424.png"
-      class="absolute w-[92%] bottom-[28%]"
+      :src="character.title_image"
+      class="absolute rounded-full w-[75%] aspect-square bottom-[2vh]"
     />
-    <div class="absolute text-[2vw] font-tmon bottom-[28%]">
+    <img src="../assets/TagIcon.png" class="absolute w-[92%] bottom-0" />
+
+    <div class="absolute text-[2vw] font-tmon bottom-0">
       {{ character.name }}
     </div>
   </main>
 </template>
 
 <script>
+import IconNotice from "../assets/icon/IconNotice.vue";
+
 export default {
   props: {
     character: null,
+  },
+  components: {
+    IconNotice,
   },
 };
 </script>

@@ -1,34 +1,29 @@
 <template>
   <main>
     <div
-      class="p-[1.5vw]"
+      class="relative flex justify-center items-center"
       :style="{
         width: width,
         aspectRatio: aspectRatio,
-        backgroundImage: `url(${buttonBorder})`,
-        backgroundSize: '100% 100% ',
       }"
     >
+      <IconButtonBorder class="absolute w-full"></IconButtonBorder>
+      <IconButton class="absolute w-[95%]"></IconButton>
+
       <div
-        class="w-full h-full bg-center rounded-[4vw] bg-cover"
-        :style="{
-          backgroundImage: `url(${buttonColor})`,
-          backgroundSize: '100% 100% ',
-        }"
+        class="flex font-tmon text-[5.4vw] w-full h-full text-[#656DF3] justify-center items-center z-10"
+        :style="{ '-webkit-text-stroke': '0.1vw white' }"
+        @click="$emit('onClickEvent')"
       >
-        <div
-          class="flex font-tmon text-[7vw] w-full h-full text-[#656DF3] justify-center items-center"
-          :style="{ '-webkit-text-stroke': '0.1vw white' }"
-          @click="$emit('onClickEvent')"
-        >
-          {{ text }}
-        </div>
+        {{ text }}
       </div>
     </div>
   </main>
 </template>
 
 <script>
+import IconButtonBorder from "../assets/icon/IconButtonBorder.vue";
+import IconButton from "../assets/icon/IconButton.vue";
 import ButtonBorder from "../assets/패스3.png";
 import ButtonColor from "../assets/사각형5.png";
 
@@ -45,5 +40,6 @@ export default {
       buttonColor: ButtonColor,
     };
   },
+  components: { IconButtonBorder, IconButton },
 };
 </script>
