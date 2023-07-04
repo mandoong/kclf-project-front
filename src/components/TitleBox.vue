@@ -1,7 +1,8 @@
 <template>
   <main>
     <div
-      class="font-miwon text-white flex justify-center items-center flex-col gap-1"
+      v-if="service"
+      class="font-miwon h-[31vw] text-white flex justify-center items-center flex-col gap-1"
       :style="{
         textShadow: '0.6vw 0.6vw 4px #000000',
         '-webkit-text-stroke': '0.2vw black',
@@ -25,7 +26,7 @@
     </div>
 
     <div v-if="!service">
-      <div class="w-full mt-[5vh] h-[23vw]"></div>
+      <div class="w-full h-[31vw]"></div>
     </div>
   </main>
 </template>

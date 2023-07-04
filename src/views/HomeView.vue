@@ -8,7 +8,7 @@
     >
       <div
         v-if="service"
-        class="font-miwon text-white flex justify-center items-center flex-col mt-[0.3vh] delay-300"
+        class="font-miwon h-[7.4vh] text-white flex justify-center items-center flex-col mt-[0.3vh] delay-300"
         :style="{
           textShadow: '0.6vw 0.6vw 4px #000000',
           '-webkit-text-stroke': '0.2vw black',
@@ -19,7 +19,7 @@
         </div>
       </div>
     </Transition>
-    <div v-if="!service" class="w-full text-center h-[7.2vh]"></div>
+    <div v-if="!service" class="w-full text-center h-[7.7vh]"></div>
     <div
       class="text-[3.5vw] mt-[15.2vh] leading-[4.5vw] flex justify-center items-center flex-col gap-[7.5vh]"
     >

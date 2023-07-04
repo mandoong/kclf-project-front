@@ -23,7 +23,7 @@ const router = createRouter({
       component: VoteView,
     },
     {
-      path: "/manager",
+      path: "/_admin",
       name: "manager",
       component: Management,
       children: [

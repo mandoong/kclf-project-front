@@ -66,8 +66,8 @@ export default {
         {
           title: "캐릭터",
           option: [
-            { name: "전체 캐릭터", href: "/manager/character", img: "" },
-            { name: "캐릭터 등록", href: "/manager/create", img: "" },
+            { name: "전체 캐릭터", href: "/_admin/character", img: "" },
+            { name: "캐릭터 등록", href: "/_admin/create", img: "" },
           ],
         },
         {

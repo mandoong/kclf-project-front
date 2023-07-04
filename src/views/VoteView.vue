@@ -15,7 +15,7 @@
         {{ service.year }}
       </div>
     </div>
-    <div v-if="!service" class="h-[12.5vh]"></div>
+    <div v-if="!service" class="h-[13.3vh]"></div>
     <div
       class="font-miwon mt-[0.3vh] leading-[3vh] text-[#FFDA22] flex justify-center items-center flex-col text-center text-[3.8vw]"
       :style="{
@@ -40,10 +40,15 @@
             v-if="characters"
             class="w-full h-full grid grid-cols-3 grid-rows-5"
           >
-            <div v-for="item in characters" :key="item">
+            <div
+              v-for="item in characters"
+              :key="item"
+              @click="onClickSelectCharacter(item.id)"
+            >
               <CharacterBox
                 :character="item"
                 @onModal="onClickOnModal(item)"
+                :onSelect="selectCharacters.some((e) => e.id === item.id)"
               ></CharacterBox>
             </div>
           </div>
@@ -64,31 +69,24 @@
       <div class="w-[78vw] flex gap-[4%]">
         <div class="flex flex-1 gap-[3%]">
           <div
+            v-for="(_, index) in Array(3)"
+            :key="index"
             class="flex-1 flex justify-center items-center relative bg-[#FDFFE3] font-tmon text-[2.5vw] rounded-[30%]"
           >
             <IconBorderYellow
               class="absolute w-full"
               with="100%"
             ></IconBorderYellow>
-            <div class="z-10">PICK</div>
-          </div>
-          <div
-            class="flex-1 flex justify-center items-center relative bg-[#FDFFE3] font-tmon text-[2.5vw] rounded-[30%]"
-          >
-            <IconBorderYellow
-              class="absolute w-full"
-              with="100%"
-            ></IconBorderYellow>
-            <div class="z-10">PICK</div>
-          </div>
-          <div
-            class="flex-1 flex justify-center items-center relative bg-[#FDFFE3] font-tmon text-[2.5vw] rounded-[30%]"
-          >
-            <IconBorderYellow
-              class="absolute w-full"
-              with="100%"
-            ></IconBorderYellow>
-            <div class="z-10">PICK</div>
+            <div v-if="!selectCharacters[index]" class="z-10">PICK</div>
+            <div
+              class="w-[80%] aspect-square overflow-hidden z-10"
+              v-if="selectCharacters[index]"
+            >
+              <img
+                class="w-full aspect-square z-10"
+                :src="selectCharacters[index].title_image"
+              />
+            </div>
           </div>
         </div>
         <button
@@ -97,7 +95,7 @@
           <div
             class="flex font-tmon text-[6vw] w-full h-full text-[#656DF3] justify-center items-center z-10"
             :style="{ '-webkit-text-stroke': '0.1vw white' }"
-            @click="$emit('onClickEvent')"
+            @click="onClickVoteModal"
           >
             투표하기
           </div>
@@ -107,6 +105,13 @@
 
     <div v-if="onModal" class="absolute top-0">
       <Modal :character="modalCharacter" @close="onClickClose" />
+    </div>
+    <div v-if="onVoteModal" class="absolute top-0">
+      <VoteModal
+        :count="selectCharacters.length"
+        @voteCharacter="onClickVoteCharacter"
+        @close="onClickClose"
+      />
     </div>
   </main>
 </template>
@@ -125,6 +130,7 @@ import TagIcon from "../assets/TagIcon.png";
 import NoticeIcon from "../assets/NoticeIcon.png";
 import { Character, Service } from "../service/Repository";
 import Modal from "../components/Modal.vue";
+import VoteModal from "../components/VoteModal.vue";
 
 export default {
   data() {
@@ -136,6 +142,7 @@ export default {
       noticeIcon: NoticeIcon,
 
       onModal: false,
+      onVoteModal: false,
       modalCharacter: null,
 
       characters: null,
@@ -153,6 +160,7 @@ export default {
   methods: {
     onClickClose() {
       this.onModal = false;
+      this.onVoteModal = false;
     },
 
     onClickOnModal(character) {
@@ -160,11 +168,41 @@ export default {
       this.onModal = true;
     },
 
+    onClickVoteModal() {
+      if (this.selectCharacters.length === 0) {
+        return;
+      }
+      this.onVoteModal = true;
+    },
+
     async fetch() {
-      const characters = await Character.GetAllCharacter();
+      const characters = await Character.GetCharacterByPage();
       const service = await Service.GetDocumentSetting();
       this.service = service.data;
       this.characters = characters.data;
+    },
+
+    onClickSelectCharacter(id) {
+      if (this.selectCharacters.some((e) => e.id === id)) {
+        this.selectCharacters = this.selectCharacters.filter(
+          (e) => e.id !== id
+        );
+        console.log(this.selectCharacters);
+      } else {
+        if (this.selectCharacters.length < 3) {
+          const character = this.characters.find((e) => e.id === id);
+          this.selectCharacters.push(character);
+          console.log(this.selectCharacters);
+        }
+      }
+    },
+
+    async onClickVoteCharacter() {
+      const body = this.selectCharacters.map((e) => {
+        return e.id;
+      });
+
+      await Character.VoteCharacter({ ids: body });
     },
   },
   components: {
@@ -176,6 +214,7 @@ export default {
     TitleBox,
     iconSpinner,
     IconBorderYellow,
+    VoteModal,
   },
 };
 </script>
