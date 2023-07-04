@@ -64,6 +64,7 @@
               width="50vw"
               aspect-ratio="11/3"
               text="투표현황 보러가기"
+              @on-click-event="$router.push('/vote/result')"
             ></VoteButton>
           </div>
         </div>

@@ -1,11 +1,16 @@
 <template>
   <main class="relative w-full h-full flex justify-center items-center">
     <IconNotice
+      v-if="!isResult"
       @click.stop
       width="3.7vw"
       class="absolute top-[1vh] right-[2vw] z-10"
       @click="$emit('onModal')"
     ></IconNotice>
+    <div
+      v-if="isResult"
+      class="absolute rounded-full w-[95%] aspect-square bg-[#FDFFE3]"
+    ></div>
     <img
       :src="character.title_image"
       class="absolute rounded-full w-[75%] aspect-square bottom-[2vh]"
@@ -32,6 +37,7 @@ export default {
   props: {
     character: null,
     onSelect: false,
+    isResult: false,
   },
   components: {
     IconNotice,

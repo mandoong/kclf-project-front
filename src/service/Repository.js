@@ -57,13 +57,13 @@ export const Character = {
       .catch((err) => err);
   },
 
-  VoteResultCount: async () => {
+  GetVoteResultCount: async () => {
     return API.get(`/character/vote/count`)
       .then((res) => res)
       .catch((err) => err);
   },
 
-  VoteResultCount: async () => {
+  GetTopVoteCharacter: async () => {
     return API.get(`/character/vote/top`)
       .then((res) => res)
       .catch((err) => err);

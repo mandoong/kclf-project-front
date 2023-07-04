@@ -95,6 +95,13 @@
               class="absolute w-full"
               with="100%"
             ></IconBorderYellow>
+            <div
+              v-if="selectCharacters[index]"
+              class="absolute w-[25%] flex justify-center items-center rounded-full -top-[5%] right-[5%] aspect-square bg-[#FFDA22] z-20"
+              @click="onClickSelectCharacter(selectCharacters[index].id)"
+            >
+              <XMarkIcon class="w-[80%] text-gray-600"></XMarkIcon>
+            </div>
             <div v-if="!selectCharacters[index]" class="z-10">PICK</div>
             <div
               class="w-[80%] aspect-square overflow-hidden z-10"
@@ -137,7 +144,7 @@
 <script>
 import TitleBox from "../components/TitleBox.vue";
 import IconBorderYellow from "../assets/icon/IconBorderYellow.vue";
-
+import { XMarkIcon } from "@heroicons/vue/24/outline";
 import RightArrow from "../assets/icon/RightArrow.vue";
 import iconSpinner from "../assets/icon/iconSpinner.vue";
 import VoteButton from "../components/voteButton.vue";
@@ -233,6 +240,7 @@ export default {
     iconSpinner,
     IconBorderYellow,
     VoteModal,
+    XMarkIcon,
   },
 };
 </script>
