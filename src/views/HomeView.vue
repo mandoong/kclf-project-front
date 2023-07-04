@@ -8,7 +8,7 @@
     >
       <div
         v-if="service"
-        class="font-miwon h-[7.4vh] text-white flex justify-center items-center flex-col mt-[0.3vh] delay-300"
+        class="font-miwon h-[7.4vh] text-white flex justify-center items-center flex-col mt-[0.3vh] delay-[250ms]"
         :style="{
           textShadow: '0.6vw 0.6vw 4px #000000',
           '-webkit-text-stroke': '0.2vw black',
@@ -23,13 +23,13 @@
     <div
       class="text-[3.5vw] mt-[15.2vh] leading-[4.5vw] flex justify-center items-center flex-col gap-[7.5vh]"
     >
-      <TransitionGroup
+      <Transition
         appear
-        enter-from-class="opacity-0 translate-y-10"
-        enter-active-class="transition-all duration-500"
+        enter-from-class="opacity-0 translate-y-5"
+        enter-active-class="transition-all"
       >
         <div
-          class="w-[59vw] aspect-[64/42] rounded-[5vw] bg-[#FDFFE3] flex p-[1vh] items-center flex-col"
+          class="w-[59vw] aspect-[64/42] duration-700 delay-[0.3s] rounded-[5vw] bg-[#FDFFE3] flex p-[1vh] items-center flex-col"
         >
           <div
             class="w-[40vw] flex-1 flex items-center justify-center font-tmon text-center break-words"
@@ -45,8 +45,14 @@
             ></VoteButton>
           </div>
         </div>
+      </Transition>
+      <Transition
+        appear
+        enter-from-class="opacity-0 translate-y-5"
+        enter-active-class="transition-all "
+      >
         <div
-          class="w-[59vw] aspect-[64/42] rounded-[5vw] bg-[#FDFFE3] flex p-[1vh] items-center flex-col"
+          class="w-[59vw] aspect-[64/42] duration-700 delay-[0.35s] rounded-[5vw] bg-[#FDFFE3] flex p-[1vh] items-center flex-col"
         >
           <div
             class="w-[40vw] flex-1 flex items-center justify-center font-tmon text-center break-words"
@@ -61,7 +67,7 @@
             ></VoteButton>
           </div>
         </div>
-      </TransitionGroup>
+      </Transition>
     </div>
   </main>
 </template>

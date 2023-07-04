@@ -9,7 +9,7 @@
         v-if="!isVoteActive"
         class="font-tmon text-center py-[4vh] w-full h-full flex items-center flex-col text-[4.5vw] gap-[20%]"
       >
-        <TransitionGroup
+        <Transition
           appear
           enter-from-class="opacity-0 translate-y-10"
           enter-active-class="transition-all duration-500"
@@ -18,7 +18,13 @@
             {{ count }}개의 캐릭터를 선택하셨습니다.<br />
             이대로 투표하시겠습니까?
           </div>
-          <div class="flex text-[6vw] w-full justify-center gap-[10%]">
+        </Transition>
+        <Transition
+          appear
+          enter-from-class="opacity-0 translate-y-10"
+          enter-active-class="transition-all duration-500"
+        >
+          <div class="flex text-[6vw] w-full justify-center gap-[10%] delay-75">
             <div
               class="flex items-center justify-center w-[28%] aspect-[23/14] bg-white rounded-[4vw]"
               @click="$emit('voteCharacter'), (isVoteActive = true)"
@@ -32,7 +38,7 @@
               아니오
             </div>
           </div>
-        </TransitionGroup>
+        </Transition>
       </div>
 
       <Transition
@@ -66,7 +72,7 @@ import RightArrow from "../assets/icon/RightArrow.vue";
 import LeftArrow from "../assets/icon/LeftArrow.vue";
 export default {
   props: {
-    count: { type: Object },
+    count: { type: Number },
   },
   data() {
     return {

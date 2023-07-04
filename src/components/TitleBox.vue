@@ -8,7 +8,7 @@
         '-webkit-text-stroke': '0.2vw black',
       }"
     >
-      <TransitionGroup
+      <Transition
         appear
         enter-from-class="opacity-0 translate-y-10"
         enter-active-class="transition-all duration-500"
@@ -16,13 +16,19 @@
         <div v-if="service" class="w-full text-center mt-[5vh] text-[8.3vw]">
           {{ service.title }}
         </div>
+      </Transition>
+      <Transition
+        appear
+        enter-from-class="opacity-0 translate-y-10"
+        enter-active-class="transition-all duration-500"
+      >
         <div
           v-if="service"
-          class="w-full delay-100 -mt-[1vh] text-center text-[8.3vw]"
+          class="w-full delay-[200ms] -mt-[1vh] text-center text-[8.3vw]"
         >
           {{ service.year }}
         </div>
-      </TransitionGroup>
+      </Transition>
     </div>
 
     <div v-if="!service">

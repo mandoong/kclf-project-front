@@ -8,14 +8,25 @@
         '-webkit-text-stroke': '0.2vw black',
       }"
     >
-      <div class="w-full text-center mt-[1.6vh] text-[7.4vw]">
-        {{ service.title }}
+      <div class="w-full flex mt-[1.7vh]">
+        <div class="w-[15%]"></div>
+        <div class="flex-1 text-center text-[7.4vw]">
+          {{ service.title }}
+        </div>
+        <div class="w-[15%] flex justify-center items-center">
+          <button class="w-[35%]" @click="$router.push('/')">
+            <img
+              class="w-full aspect-square"
+              src="../assets/iconmonstr-home-4-240.png"
+            />
+          </button>
+        </div>
       </div>
       <div class="w-full -mt-[1vh] text-center text-[7.4vw]">
         {{ service.year }}
       </div>
     </div>
-    <div v-if="!service" class="h-[13.3vh]"></div>
+    <div v-if="!service" class="h-[13.4vh]"></div>
     <div
       class="font-miwon mt-[0.3vh] leading-[3vh] text-[#FFDA22] flex justify-center items-center flex-col text-center text-[3.8vw]"
       :style="{
@@ -40,17 +51,24 @@
             v-if="characters"
             class="w-full h-full grid grid-cols-3 grid-rows-5"
           >
-            <div
-              v-for="item in characters"
-              :key="item"
-              @click="onClickSelectCharacter(item.id)"
+            <TransitionGroup
+              appear
+              enter-from-class="opacity-0 translate-y-10"
+              enter-active-class="transition-all duration-500"
             >
-              <CharacterBox
-                :character="item"
-                @onModal="onClickOnModal(item)"
-                :onSelect="selectCharacters.some((e) => e.id === item.id)"
-              ></CharacterBox>
-            </div>
+              <div
+                v-for="(item, i) in characters"
+                :key="item"
+                :style="{ transitionDelay: `${i * 50}ms` }"
+                @click="onClickSelectCharacter(item.id)"
+              >
+                <CharacterBox
+                  :character="item"
+                  @onModal="onClickOnModal(item)"
+                  :onSelect="selectCharacters.some((e) => e.id === item.id)"
+                ></CharacterBox>
+              </div>
+            </TransitionGroup>
           </div>
           <div
             v-if="!characters"
