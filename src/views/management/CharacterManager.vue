@@ -20,8 +20,8 @@
           <td class="px-4">{{ item.id }}</td>
           <td class="px-4">{{ item.name }}</td>
 
-          <td class="px-4">{{ new Date(item.created_at).toLocaleString() }}</td>
-          <td class="px-4">{{ new Date(item.updated_at).toLocaleString() }}</td>
+          <td class="px-4">{{ dateFomat(item.created_at) }}</td>
+          <td class="px-4">{{ dateFomat(item.updated_at) }}</td>
         </tr>
       </template>
     </ContentTable>
@@ -31,6 +31,7 @@
 <script>
 import ContentTable from "../../components/ContentTable.vue";
 import Subtitle from "../../components/Subtitle.vue";
+import dayjs from "dayjs";
 import { Auth, Character } from "../../service/Repository";
 
 export default {
@@ -52,7 +53,11 @@ export default {
       const character = await Character.GetAllCharacter(page);
       this.characters = character.data;
     },
+
+    dateFomat(date) {
+      return dayjs(date).format("YYYY-MM-DD  HH:MM");
+    },
   },
-  components: { ContentTable, Subtitle },
+  components: { ContentTable, Subtitle, dayjs },
 };
 </script>

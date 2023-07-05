@@ -30,8 +30,9 @@
 
       <div class="flex h-12 items-center">
         <div class="w-56">투표 종료 날짜</div>
+
         <input
-          class="border-gray-400 w-48 w-10 border rounded-lg px-2 h-8"
+          class="border-gray-400 w-48 border rounded-lg px-2 h-8"
           v-model="voteDate"
           type="date"
         />
@@ -186,6 +187,7 @@
 import Subtitle from "../../components/Subtitle.vue";
 import ManagerModal from "../../components/ManagerModal.vue";
 import { Service, Auth } from "../../service/Repository";
+import dayjs from "dayjs";
 export default {
   data() {
     return {
@@ -199,11 +201,7 @@ export default {
       onPasswordErr: false,
       changePasswordErr: false,
       successChange: false,
-      voteDate: {
-        y: "",
-        m: "",
-        d: "",
-      },
+      voteDate: null,
 
       onRef: "",
 
@@ -229,7 +227,7 @@ export default {
         this.subtitle = service.data.subtitle;
         this.year = service.data.year;
         this.login_id = service.data.login_id;
-        this.voteDate = service.vote_at;
+        this.voteDate = dayjs(service.data.vote_at).format("YYYY-MM-DD");
       }
     },
     onChangeInputFile(e) {

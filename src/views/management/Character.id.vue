@@ -54,7 +54,7 @@
           </div>
 
           <div
-            class="relative border-4 rounded-lg aspect-square flex justify-center text-gray-400 items-center hover:border-gray-400 hover:text-gray-500"
+            class="relative border-4 rounded-lg aspect-square flex justify-center text-gray-400 items-center hover:border-gray-400 hover:text-gray-500 cursor-pointer"
             @click="openFileInput()"
           >
             <PlusIcon class="w-12" />
@@ -77,9 +77,9 @@
       </div>
 
       <div class="w-full h-20 flex justify-center gap-10 mt-20">
-        <button class="bg-blue-500 text-white rounded-md h-16 px-10">
+        <!-- <button class="bg-blue-500 text-white rounded-md h-16 px-10">
           대표 이미지 변경
-        </button>
+        </button> -->
 
         <button
           class="bg-red-500 text-white rounded-md h-16 px-10"
