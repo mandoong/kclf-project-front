@@ -41,7 +41,7 @@
 
     <div class="w-full flex justify-center gap-[2.7%]">
       <div class="w-[5.8%]">
-        <LeftArrow width="100%" :onStroke="true"></LeftArrow>
+        <LeftArrow width="100%" :onStroke="true" color="#FFDA22"></LeftArrow>
       </div>
       <div class="flex justify-center items-center flex-col mt-[0.5vh]">
         <div
@@ -79,7 +79,7 @@
         </div>
       </div>
       <div class="w-[5.8%]">
-        <RightArrow width="100%" :onStroke="true"></RightArrow>
+        <RightArrow width="100%" :onStroke="true" color="#FFDA22"></RightArrow>
       </div>
     </div>
 

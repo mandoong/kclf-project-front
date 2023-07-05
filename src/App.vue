@@ -1,6 +1,6 @@
 <template>
   <header
-    class="w-screen h-screen bg-cover overflow-hidden"
+    class="w-screen h-screen bg-cover overflow-scroll"
     :style="{ backgroundImage: `url(${bg})` }"
   >
     <RouterView />
