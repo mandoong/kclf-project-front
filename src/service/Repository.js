@@ -36,7 +36,7 @@ export const Character = {
   },
 
   DeleteCharacterImages: async (id, data) => {
-    return API.delete(`/character/${id}/image`, data)
+    return API.delete(`/character/${id}/image?image=${data}`)
       .then((res) => res)
       .catch((err) => err);
   },

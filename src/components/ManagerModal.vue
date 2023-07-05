@@ -17,18 +17,20 @@
           <slot></slot>
         </div>
 
-        <div class="h-12 flex gap-10 text-white">
-          <div
-            class="w-20 flex justify-center items-center rounded-lg bg-blue-500"
-            @click="$emit('submit')"
-          >
-            예
-          </div>
-          <div
-            class="w-20 flex justify-center items-center rounded-lg bg-red-500"
-            @click="$emit('close')"
-          >
-            아니오
+        <div v-if="onButton" class="w-full flex-1">
+          <div class="w-full h-12 flex justify-center gap-10 text-white">
+            <div
+              class="w-20 flex justify-center items-center rounded-lg bg-blue-500"
+              @click="$emit('submit')"
+            >
+              예
+            </div>
+            <div
+              class="w-20 flex justify-center items-center rounded-lg bg-red-500"
+              @click="$emit('close')"
+            >
+              아니오
+            </div>
           </div>
         </div>
       </div>
@@ -40,6 +42,7 @@
 export default {
   props: {
     onModal: false,
+    onButton: false,
   },
 };
 </script>

@@ -116,6 +116,7 @@
     </div>
     <ManagerModal
       :onModal="onModal"
+      :onButton="true"
       @close="onModal = false"
       @submit="onClickRegisterDocument"
     >
@@ -126,6 +127,7 @@
 
     <ManagerModal
       :onModal="onPasswordModal"
+      :onButton="true"
       @close="onPasswordModal = false"
       @submit="onClickChangePassword"
     >
