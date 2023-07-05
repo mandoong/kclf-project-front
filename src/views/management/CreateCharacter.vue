@@ -11,6 +11,15 @@
           v-model="characterName"
           @input="onInputCharacterName"
         />
+        <Transition
+          appear
+          enter-from-class="opacity-0"
+          enter-actvie-class="transition-all"
+        >
+          <div v-show="noName" class="ml-10 text-red-500 duration-100">
+            * 캐릭터 이름을 입력해주세요.
+          </div>
+        </Transition>
       </div>
 
       <div class="flex h-16 items-center">
@@ -28,12 +37,21 @@
         >
           이미지 선택하기
         </button>
+        <Transition
+          appear
+          enter-from-class="opacity-0"
+          enter-actvie-class="transition-all"
+        >
+          <div v-if="noFile" class="ml-10 text-red-500 duration-100">
+            * 이미지가 없습니다.
+          </div>
+        </Transition>
       </div>
 
       <div class="flex-1">
         <div
           v-if="fileList.length"
-          class="border-2 border-gray-200 w-full rounded-lg grid grid-cols-5 gap-2 mt-10 p-2"
+          class="border-2 border-gray-200 w-full rounded-lg grid grid-cols-8 gap-2 mt-10 p-2"
         >
           <div
             class="border-4 rounded-lg aspect-square"
@@ -66,11 +84,18 @@
       </div>
     </div>
     <div></div>
+
+    <ManagerModal :onModal="onModal">
+      <div class="flex justify-center items-center h-20 text-xl">
+        캐릭터가 완성되습니다.
+      </div>
+    </ManagerModal>
   </div>
 </template>
 
 <script>
 import Subtitle from "../../components/Subtitle.vue";
+import ManagerModal from "../../components/ManagerModal.vue";
 import { Auth, Character } from "../../service/Repository";
 export default {
   data() {
@@ -79,6 +104,9 @@ export default {
       fileList: [],
       previewUrls: [],
       titleImage: null,
+      noName: false,
+      noFile: false,
+      onModal: false,
     };
   },
 
@@ -107,21 +135,30 @@ export default {
     },
 
     openFileInput() {
+      this.noFile = false;
       this.$refs.fileInput.click();
     },
 
     onInputCharacterName(e) {
+      this.noName = false;
       const name = e.target.value;
       this.characterName = name;
     },
 
     async onClickRegisterCharacter() {
+      if (!this.characterName) {
+        return (this.noName = true);
+      }
+
+      if (!this.fileList) {
+        return (this.noFile = true);
+      }
+
       const formData = new FormData();
       formData.append("file", this.titleImage);
       formData.append("name", this.characterName);
 
       const character = await Character.CreateCharacter(formData);
-      console.log(this.fileList[0]);
 
       if (character.status === 201) {
         const imageData = new FormData();
@@ -131,10 +168,16 @@ export default {
             imageData.append("files", file);
           }
         }
-        await Character.UploadCharacterImages(id, imageData);
+        const result = await Character.UploadCharacterImages(id, imageData);
+
+        this.onModal = true;
+
+        setTimeout(() => {
+          this.$router.push(`/_admin/character/${result.data.id}`);
+        }, 2000);
       }
     },
   },
-  components: { Subtitle },
+  components: { Subtitle, ManagerModal },
 };
 </script>

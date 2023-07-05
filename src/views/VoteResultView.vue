@@ -72,7 +72,7 @@
               enter-active-class="transition-all duration-500"
             >
               <div
-                class="text-[3.5vw] w-[15%] font-tmon text-[#FDFFE3] top-0"
+                class="text-[3.5vw] w-[20%] font-tmon text-[#FDFFE3] top-0"
                 :style="{
                   transitionDelay: `${i * 100 + 300}ms`,
                 }"

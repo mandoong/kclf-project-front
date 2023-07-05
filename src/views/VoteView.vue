@@ -45,7 +45,7 @@
       </div>
       <div class="flex justify-center items-center flex-col mt-[0.5vh]">
         <div
-          class="w-[78vw] h-[68vh] py-[1vh] px-[2vw] rounded-[5vw] bg-[#FDFFE3]"
+          class="w-[78vw] aspect-[84/130] py-[1vh] px-[2vw] rounded-[5vw] bg-[#FDFFE3]"
         >
           <div
             v-if="characters"
@@ -54,7 +54,7 @@
             <TransitionGroup
               appear
               enter-from-class="opacity-0 translate-y-10"
-              enter-active-class="transition-all duration-500"
+              enter-active-class="transition-all duration-500 "
             >
               <div
                 v-for="(item, i) in characters"
@@ -103,6 +103,7 @@
               <XMarkIcon class="w-[80%] text-gray-600"></XMarkIcon>
             </div>
             <div v-if="!selectCharacters[index]" class="z-10">PICK</div>
+
             <div
               class="w-[80%] aspect-square overflow-hidden z-10"
               v-if="selectCharacters[index]"

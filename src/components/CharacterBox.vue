@@ -15,12 +15,29 @@
       :src="character.title_image"
       class="absolute rounded-full w-[70%] aspect-square object-contain bottom-[2vh]"
     />
-    <div
-      v-if="onSelect"
-      class="absolute rounded-full w-[75%] aspect-square bottom-[2vh] bg-black/[0.5] flex justify-center items-center"
+    <Transition
+      enter-from-class="opacity-0 "
+      enter-active-class="transition-all"
+      leave-to-class="opacity-0 "
+      leave-active-class="transition-all duration-100"
     >
-      <IconHeart class="w-[40%]" width="100%"></IconHeart>
-    </div>
+      <div
+        v-if="onSelect"
+        class="absolute rounded-full w-[75%] aspect-square bottom-[2vh] bg-black/[0.5] flex justify-center items-center"
+      ></div>
+    </Transition>
+    <Transition
+      enter-from-class="opacity-0 w-[0%]"
+      enter-active-class="transition-all"
+      leave-to-class="opacity-0 "
+      leave-active-class="transition-all"
+    >
+      <IconHeart
+        v-if="onSelect"
+        class="w-[40%] z-10 scale-100 transition-all duration-200"
+        width="100%"
+      ></IconHeart>
+    </Transition>
     <img src="../assets/TagIcon.png" class="absolute w-[92%] bottom-0" />
 
     <div class="absolute text-[2vw] font-tmon bottom-0">
