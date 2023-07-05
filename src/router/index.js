@@ -10,6 +10,7 @@ import DocumentManager from "../views/management/DocumentManager.vue";
 import CreateCharacter from "../views/management/CreateCharacter.vue";
 import axios from "axios";
 import { Auth } from "../service/Repository";
+import { API } from "../service/API";
 // import Login from "../views/LoginView.vue";
 
 const router = createRouter({
@@ -81,6 +82,7 @@ router.beforeEach(async (to, from, next) => {
     const token = window.localStorage.getItem("Token");
 
     if (token) {
+      API.defaults.headers.Authorization = "Bearer " + token;
       next();
     } else {
       next("/_admin/login");
