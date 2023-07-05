@@ -71,7 +71,7 @@
 
 <script>
 import Subtitle from "../../components/Subtitle.vue";
-import { Character } from "../../service/Repository";
+import { Auth, Character } from "../../service/Repository";
 export default {
   data() {
     return {
@@ -81,6 +81,9 @@ export default {
       titleImage: null,
     };
   },
+
+  mounted() {},
+
   methods: {
     onChangeInputFile(e) {
       const files = e.target.files;

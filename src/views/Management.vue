@@ -29,10 +29,7 @@
           class="h-12 w-12 text-gray-500"
           @click="onMenus = !onMenus"
         />
-        <div
-          class="text-xl flex items-center text-slate-200"
-          @click="$router.push('/')"
-        >
+        <div class="text-xl flex items-center text-slate-200">
           관리자 페이지
         </div>
       </div>
@@ -59,6 +56,7 @@
     </div>
     <div
       v-if="onMenus"
+      @click="onMenus = false"
       class="absolute w-screen h-screen top-0 bg-black/[20%] z-10 transition-all duration-300"
     ></div>
   </div>
@@ -66,6 +64,7 @@
 
 <script>
 import { Bars3Icon } from "@heroicons/vue/24/solid";
+import { Auth } from "../service/Repository";
 export default {
   props: {
     onMenus: false,
@@ -92,9 +91,7 @@ export default {
       ],
     };
   },
-  mounted() {
-    this.location = window.localStorage.getItem("location") || "/";
-  },
+  mounted() {},
   methods: {
     onClickRoute(href) {
       window.localStorage.setItem("location", href);

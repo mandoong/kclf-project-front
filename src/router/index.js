@@ -8,6 +8,8 @@ import Character from "../views/management/CharacterManager.vue";
 import CharacterInfo from "../views/management/Character.id.vue";
 import DocumentManager from "../views/management/DocumentManager.vue";
 import CreateCharacter from "../views/management/CreateCharacter.vue";
+import axios from "axios";
+import { Auth } from "../service/Repository";
 // import Login from "../views/LoginView.vue";
 
 const router = createRouter({
@@ -37,36 +39,55 @@ const router = createRouter({
       path: "/_admin",
       name: "manager",
       component: Management,
+      meta: { requiresAuth: true },
       children: [
         {
           path: "character",
           name: "character",
+          meta: { requiresAuth: true },
           component: Character,
         },
         {
           path: "character/:id",
           name: "characterInfo",
+          meta: { requiresAuth: true },
           component: CharacterInfo,
         },
         {
           path: "create",
           name: "create",
+          meta: { requiresAuth: true },
           component: CreateCharacter,
         },
         {
           path: "document",
           name: "document",
+          meta: { requiresAuth: true },
           component: DocumentManager,
         },
       ],
     },
 
     {
-      path: "/login",
+      path: "/_admin/login",
       name: "login",
       component: Login,
     },
   ],
+});
+
+router.beforeEach(async (to, from, next) => {
+  if (to.meta.requiresAuth) {
+    const token = window.localStorage.getItem("Token");
+
+    if (token) {
+      next();
+    } else {
+      next("/_admin/login");
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;

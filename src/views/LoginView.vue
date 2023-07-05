@@ -81,7 +81,7 @@
 <script>
 import { ref } from "vue";
 import { ExclamationCircleIcon } from "@heroicons/vue/20/solid";
-import { Service } from "../service/Repository";
+import { Service, Auth } from "../service/Repository";
 
 export default {
   data() {
@@ -95,10 +95,12 @@ export default {
 
   methods: {
     async onClickLogin() {
-      const login = await Service.loginManagementService(this.loginPW);
-      if (login.status === 200) {
+      const pw = this.loginPW;
+      const login = await Auth.SignIn(pw);
+      if (login.status === 201) {
         const token = login.data;
-        window.localStorage.setItem("Token", token);
+        window.localStorage.setItem("Token", token.accessToken);
+        this.$router.push("/_admin");
       } else {
         this.loginFailed = true;
       }

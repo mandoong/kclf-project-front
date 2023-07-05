@@ -47,8 +47,8 @@
         </button>
       </div>
 
-      <div class="flex">
-        <div class="flex-1">
+      <div class="flex gap-10">
+        <div class="">
           <div class="flex h-16 items-center">
             <div class="w-56">메인 배경 이미지</div>
             <input
@@ -76,7 +76,7 @@
           </button>
         </div>
 
-        <div class="flex-1">
+        <div class="">
           <div class="flex h-16 items-center">
             <div class="w-56">서브 배경 이미지</div>
             <input
@@ -104,6 +104,7 @@
           </button>
         </div>
       </div>
+      <div class="mt-4">이미지 업로드 시 즉각 변경 됩니다.</div>
 
       <div class="w-full h-20 flex justify-center mt-20">
         <button

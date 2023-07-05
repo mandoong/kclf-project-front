@@ -13,7 +13,7 @@
     ></div>
     <img
       :src="character.title_image"
-      class="absolute rounded-full w-[70%] aspect-square bottom-[2vh]"
+      class="absolute rounded-full w-[70%] aspect-square object-contain bottom-[2vh]"
     />
     <div
       v-if="onSelect"

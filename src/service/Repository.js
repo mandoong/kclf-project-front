@@ -23,6 +23,12 @@ export const Character = {
       .catch((err) => err);
   },
 
+  ChangeCharacterTitleImage: async (id, data) => {
+    return API.post(`/character/${id}/title`, { imageId: data })
+      .then((res) => res)
+      .catch((err) => err);
+  },
+
   GetCharacterById: async (id) => {
     return API.get(`/character/get/${id}`)
       .then((res) => res)

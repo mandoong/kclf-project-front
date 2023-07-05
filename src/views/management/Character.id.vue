@@ -31,7 +31,7 @@
         <div
           class="border-2 border-gray-200 w-full rounded-lg grid grid-cols-10 gap-2 mt-4 p-2"
         >
-          <div
+          <!-- <div
             class="relative border-4 border-yellow-400 rounded-lg aspect-square"
           >
             <img
@@ -45,9 +45,13 @@
             >
               <XMarkIcon class="w-4"></XMarkIcon>
             </div>
-          </div>
+          </div> -->
           <div
             class="relative border-4 rounded-lg aspect-square"
+            :class="
+              images.image === character.title_image ? 'border-yellow-400' : ''
+            "
+            @click="onClickChangeCharacterTitleImage(images)"
             v-for="images in character.images"
             :key="images"
           >
@@ -152,6 +156,7 @@ import Subtitle from "../../components/Subtitle.vue";
 import ManagerModal from "../../components/ManagerModal.vue";
 import { XMarkIcon, PlusIcon } from "@heroicons/vue/24/outline";
 import { Character } from "../../service/Repository";
+import { Auth } from "../../service/Repository";
 export default {
   data() {
     return {
@@ -176,6 +181,10 @@ export default {
     },
 
     onClickSelectImage(image) {
+      if (image.image === this.character.title_image) {
+        return (this.onTitleModal = true);
+      }
+
       this.isImage = image;
       this.onDeleteImageModal = true;
       console.log(image.id);
@@ -202,6 +211,8 @@ export default {
       const imageId = this.isImage.id;
       const id = this.character.id;
       await Character.DeleteCharacterImages(id, imageId);
+
+      this.onDeleteImageModal = false;
       this.fetch();
     },
 
@@ -212,6 +223,14 @@ export default {
       if (result.status === 200) {
         this.$router.push("/_admin/character");
       }
+    },
+
+    async onClickChangeCharacterTitleImage(image) {
+      const id = this.character.id;
+      const imageId = image.id;
+      await Character.ChangeCharacterTitleImage(id, imageId);
+
+      this.fetch();
     },
   },
   components: { Subtitle, XMarkIcon, ManagerModal, PlusIcon },
