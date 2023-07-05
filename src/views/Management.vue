@@ -91,8 +91,17 @@ export default {
       ],
     };
   },
-  mounted() {},
+  mounted() {
+    this.fetch();
+  },
   methods: {
+    async fetch() {
+      const token = await Auth.ValidateToken();
+      if (token.status === 401) {
+        window.localStorage.removeItem("Token");
+        this.$router.push("/_admin/login");
+      }
+    },
     onClickRoute(href) {
       window.localStorage.setItem("location", href);
       this.location = href;
