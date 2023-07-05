@@ -99,3 +99,23 @@ export const Service = {
       .catch((err) => err);
   },
 };
+
+export const Auth = {
+  SignIn: async (data) => {
+    return API.post(`/auth/sign-in`, { password: data })
+      .then((res) => res)
+      .catch((err) => err);
+  },
+
+  ChangePassword: async (data) => {
+    return API.post(`/auth/signup`, { password: data })
+      .then((res) => res)
+      .catch((err) => err);
+  },
+
+  ValidateToken: async () => {
+    return API.get(`/auth/token`)
+      .then((res) => res)
+      .catch((err) => err);
+  },
+};

@@ -1,11 +1,22 @@
 <template>
   <div class="bg-gray-100 w-screen h-screen relative">
     <div @click.stop class="flex-1 bg-gray-100 p-4">
-      <button class="w-10 h-10 mb-4" @click.stop="onMenus = !onMenus">
+      <button
+        class="w-10 h-10 mb-4 hidden pc:block"
+        @click.stop="onMenus = !onMenus"
+      >
         <Bars3Icon class="h-12 w-12 text-gray-500" />
       </button>
-      <div class="mt-10 mx-10 text-[#6f7e95]">
+      <div class="mt-10 mx-10 h-[80vh] text-[#6f7e95] hidden pc:block">
         <router-view />
+      </div>
+      <div
+        class="mt-10 mx-10 h-[80vh] flex justify-center items-center text-[#6f7e95] pc:hidden"
+      >
+        <div>
+          해당 페이지는 PC에서만<br />
+          확인가능합니다.
+        </div>
       </div>
     </div>
     <div
@@ -19,7 +30,7 @@
           @click="onMenus = !onMenus"
         />
         <div
-          class="text-2xl flex items-center text-slate-200"
+          class="text-xl flex items-center text-slate-200"
           @click="$router.push('/')"
         >
           관리자 페이지
@@ -32,10 +43,10 @@
         :key="item"
         class="border-b border-slate-400 p-4"
       >
-        <div class="text-xl text-slate-400 mb-4">{{ item.title }}</div>
+        <div class="text-lg text-slate-400 mb-4">{{ item.title }}</div>
         <div v-for="menu in item.option" :key="menu">
           <button
-            class="hover:bg-slate-600 text-2xl w-full text-left rounded-md px-2 mb-4"
+            class="hover:bg-slate-600 text-xl w-full text-left rounded-md px-2 mb-4"
             :class="
               location === menu.href ? 'text-slate-100 ' : 'text-slate-200 '
             "

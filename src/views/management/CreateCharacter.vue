@@ -2,7 +2,7 @@
   <div>
     <Subtitle :isBack="true">캐릭터 등록</Subtitle>
 
-    <div class="bg-white w-full h-[80vh] p-10 text-xl flex flex-col">
+    <div class="bg-white w-full p-10 text-xl flex flex-col">
       <div class="flex h-16 items-center">
         <div class="w-40">캐릭터 이름</div>
         <input

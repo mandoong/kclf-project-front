@@ -49,17 +49,19 @@
             <CharacterBox :character="item" :isResult="true"></CharacterBox>
           </div>
           <div
-            class="absolute w-full h-full flex items-center pl-[20%] gap-[5%]"
+            class="absolute w-full h-full flex items-center pl-[10vh] gap-[5%]"
           >
             <Transition
               appear
-              enter-from-class="opacity-0 -translate-x-[50%]"
+              enter-from-class="opacity-0 -translate-x-[10vh]"
               enter-active-class="transition-all duration-500"
             >
               <div
                 class="bg-[#FDFFE3] h-[20%]"
                 :style="{
-                  width: `${(item.vote_count / count) * 100 + 10}%`,
+                  width: `${
+                    (item.vote_count / characters[0].vote_count) * 100 + 10
+                  }%`,
                   transitionDelay: `${i * 100}ms`,
                 }"
               ></div>
