@@ -119,8 +119,12 @@
       @close="onDeleteCharacterModal = false"
       @submit="onClickDeleteCharacter"
     >
-      <div class="h-20 flex justify-center items-center">
-        정말로 캐릭터를 삭제하시겠습니까?
+      <div
+        class="h-32 flex justify-center items-center text-center text-red-500"
+      >
+        정말로 캐릭터를 삭제하시겠습니까? <br />
+        <br />
+        삭제된 캐릭터는 복구 할수 없습니다.<br />
       </div>
     </ManagerModal>
 
