@@ -1,5 +1,5 @@
 <template>
-  <main class="relative w-full h-full flex justify-center items-center">
+  <main class="relative w-full aspect-square flex justify-center items-center">
     <IconNotice
       v-if="!isResult"
       @click.stop
@@ -13,7 +13,7 @@
     ></div>
     <img
       :src="character.title_image"
-      class="absolute rounded-full w-[70%] aspect-square object-contain bottom-[2vh]"
+      class="absolute rounded-full w-[70%] aspect-square object-contain"
     />
     <Transition
       enter-from-class="opacity-0 "
@@ -40,7 +40,12 @@
     </Transition>
     <img src="../assets/TagIcon.png" class="absolute w-[92%] bottom-0" />
 
-    <div class="absolute text-[2vw] font-tmon bottom-0">
+    <div
+      class="absolute font-tmon bottom-0"
+      :class="
+        isResult ? (isResultSub ? 'text-[1.5vh]' : 'text-[2vh] ') : 'text-[2vw]'
+      "
+    >
       {{ character.name }}
     </div>
   </main>
@@ -55,6 +60,7 @@ export default {
     character: null,
     onSelect: false,
     isResult: false,
+    isResultSub: false,
   },
   components: {
     IconNotice,

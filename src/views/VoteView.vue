@@ -48,7 +48,9 @@
           @click="onClickPrevCharacterList"
         ></LeftArrow>
       </div>
-      <div class="flex justify-center items-center flex-col mt-[0.5vh]">
+      <div
+        class="flex aspect-[84/130] justify-center items-center flex-col mt-[0.5vh]"
+      >
         <div
           class="w-[78vw] aspect-[84/130] py-[1vh] px-[2vw] rounded-[5vw] bg-[#FDFFE3]"
         >
@@ -65,6 +67,7 @@
               <div
                 v-for="(item, i) in prevCharacters"
                 :key="item"
+                class="-mt-[1vh]"
                 :style="{ transitionDelay: `${i * 50}ms` }"
                 @click="onClickSelectCharacter(item.id)"
               >
@@ -237,7 +240,7 @@ export default {
     onClickNextCharacterList() {
       const max = parseInt(this.characters.length / 15);
 
-      if (this.PageCount < max + 2) {
+      if (this.PageCount < max + 1) {
         this.PageCount = this.PageCount + 1;
         this.prevCharacters = this.characters.slice(
           (this.PageCount - 1) * 15,

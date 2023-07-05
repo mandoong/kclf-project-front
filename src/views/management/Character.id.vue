@@ -31,21 +31,6 @@
         <div
           class="border-2 border-gray-200 w-full rounded-lg grid grid-cols-10 gap-2 mt-4 p-2"
         >
-          <!-- <div
-            class="relative border-4 border-yellow-400 rounded-lg aspect-square"
-          >
-            <img
-              class="w-full h-full object-contain object-center"
-              :src="character.title_image"
-              alt="미리 보기 이미지"
-            />
-            <div
-              class="absolute flex justify-center items-center -top-2 -right-2 w-5 aspect-square bg-gray-300 rounded-full"
-              @click="onTitleModal = true"
-            >
-              <XMarkIcon class="w-4"></XMarkIcon>
-            </div>
-          </div> -->
           <div
             class="relative border-4 rounded-lg aspect-square"
             :class="

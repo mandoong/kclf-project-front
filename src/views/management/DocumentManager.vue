@@ -1,37 +1,46 @@
 <template>
   <div class="">
-    <Subtitle>문서 관리</Subtitle>
+    <Subtitle>서비스 관리</Subtitle>
 
-    <div class="bg-white w-full h-[80vh] p-10 text-xl flex flex-col">
-      <div class="flex h-16 items-center">
+    <div class="bg-white w-full h-[80vh] p-6 flex flex-col justify-between">
+      <div class="flex h-12 items-center">
         <div class="w-56">메인 타이틀</div>
         <input
-          class="border-gray-400 border rounded-lg px-2 h-10"
+          class="border-gray-400 w-48 border rounded-lg px-2 h-8"
           v-model="title"
         />
         <!-- {{ service.title }}</div> -->
       </div>
 
-      <div class="flex h-16 items-center">
+      <div class="flex h-12 items-center">
         <div class="w-56">서브 타이틀</div>
         <input
-          class="border-gray-400 border rounded-lg px-2 h-10"
+          class="border-gray-400 w-48 border rounded-lg px-2 h-8"
           v-model="subtitle"
         />
       </div>
 
-      <div class="flex h-16 items-center">
+      <div class="flex h-12 items-center">
         <div class="w-56">개최년도</div>
         <input
-          class="border-gray-400 border rounded-lg px-2 h-10"
+          class="border-gray-400 w-48 border rounded-lg px-2 h-8"
           v-model="year"
         />
       </div>
 
-      <div class="flex h-16 items-center">
+      <div class="flex h-12 items-center">
+        <div class="w-56">투표 종료 날짜</div>
+        <input
+          class="border-gray-400 w-48 w-10 border rounded-lg px-2 h-8"
+          v-model="voteDate"
+          type="date"
+        />
+      </div>
+
+      <div class="flex h-12 items-center">
         <div class="w-56">로그인 아이디</div>
         <input
-          class="border-gray-400 border rounded-lg px-2 h-10"
+          class="border-gray-400 w-48 border rounded-lg px-2 h-8"
           v-model="login_id"
         />
       </div>
@@ -69,7 +78,7 @@
             </div>
           </div>
           <button
-            class="bg-blue-500 text-white rounded-md h-10 px-4 mt-4"
+            class="w-40 bg-blue-500 text-white rounded-md h-10 px-4 mt-4"
             @click="openFileInput('titleImage')"
           >
             이미지 업로드
@@ -97,16 +106,19 @@
             </div>
           </div>
           <button
-            class="bg-blue-500 text-white rounded-md h-10 px-4 mt-4"
+            class="w-40 bg-blue-500 text-white rounded-md h-10 px-4 mt-4"
             @click="openFileInput('subImage')"
           >
             이미지 업로드
           </button>
         </div>
       </div>
-      <div class="mt-4">이미지 업로드 시 즉각 변경 됩니다.</div>
+      <div class="mt-4">
+        기본 적용된 이미지 크기는 1080 x 1920 입니다.<br />
+        업로드 시 참고 바랍니다.
+      </div>
 
-      <div class="w-full h-20 flex justify-center mt-20">
+      <div class="w-full h-16 flex justify-center mt-10">
         <button
           class="bg-blue-500 text-white rounded-md h-16 px-10"
           @click="onClickModal"
@@ -187,6 +199,11 @@ export default {
       onPasswordErr: false,
       changePasswordErr: false,
       successChange: false,
+      voteDate: {
+        y: "",
+        m: "",
+        d: "",
+      },
 
       onRef: "",
 
@@ -212,6 +229,7 @@ export default {
         this.subtitle = service.data.subtitle;
         this.year = service.data.year;
         this.login_id = service.data.login_id;
+        this.voteDate = service.vote_at;
       }
     },
     onChangeInputFile(e) {
@@ -267,6 +285,7 @@ export default {
         subtitle: this.subtitle,
         year: this.year,
         login_id: this.login_id,
+        vote_at: this.voteDate,
       };
 
       await Service.UpdateDocumentSetting(body);

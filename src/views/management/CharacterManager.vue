@@ -12,7 +12,7 @@
       </template>
       <template v-slot:body>
         <tr
-          class="h-8 truncate"
+          class="h-8 truncate poin cursor-pointer hover:bg-gray-300"
           v-for="item in characters"
           :key="item"
           @click="$router.push(`/_admin/character/${item.id}`)"

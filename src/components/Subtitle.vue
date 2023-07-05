@@ -1,9 +1,9 @@
 <template>
   <div class="w-full text-xl font-bold mb-10 h-12 flex justify-between">
     <slot></slot>
-    <div v-if="isBack">
+    <button v-if="isBack">
       <XMarkIcon class="w-10" @click="$router.back()"></XMarkIcon>
-    </div>
+    </button>
   </div>
 </template>
 

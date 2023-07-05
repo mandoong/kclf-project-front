@@ -35,54 +35,87 @@
         '-webkit-text-stroke': '0.15vw black',
       }"
     >
-      투표 현황
+      TOP 5
     </div>
 
-    <div class="w-full h-[78vh] px-[5%] mt-[3%]">
-      <div class="w-full h-full grid grid-rows-5">
-        <div
-          v-for="(item, i) in characters"
-          :key="item"
-          class="relative flex items-center flex-1 w-full"
-        >
-          <div class="h-full p-[1vh] aspect-square z-10">
-            <CharacterBox :character="item" :isResult="true"></CharacterBox>
-          </div>
-          <div
-            class="absolute w-full h-full flex items-center pl-[10vh] gap-[5%]"
-          >
-            <Transition
-              appear
-              enter-from-class="opacity-0 -translate-x-[10vh]"
-              enter-active-class="transition-all duration-500"
+    <div
+      v-if="characters"
+      class="flex flex-col w-full h-[70vh] mt-[10%] gap-[3%]"
+    >
+      <Transition
+        appear
+        enter-from-class="opacity-0 translate-y-[10vh]"
+        enter-active-class="transition-all duration-500"
+      >
+        <div class="w-full h-[40%] flex justify-center delay-300">
+          <div class="h-full aspect-square relative flex justify-center">
+            <img
+              class="absolute -top-[15%] z-10 w-[45%]"
+              src="../assets/crown.png"
+            />
+            <div
+              class="absolute w-[40%] text-center text-[3vw] font-tmon -top-[3%] z-20"
             >
-              <div
-                class="bg-[#FDFFE3] h-[20%]"
-                :style="{
-                  width: `${
-                    (item.vote_count / characters[0].vote_count) * 100 + 10
-                  }%`,
-                  transitionDelay: `${i * 100}ms`,
-                }"
-              ></div>
-            </Transition>
-            <Transition
-              appear
-              enter-from-class="opacity-0 -translate-x-[50%]"
-              enter-active-class="transition-all duration-500"
-            >
-              <div
-                class="text-[3.5vw] w-[20%] font-tmon text-[#FDFFE3] top-0"
-                :style="{
-                  transitionDelay: `${i * 100 + 300}ms`,
-                }"
-              >
-                {{ ((item.vote_count / count) * 100).toFixed() }} %
-              </div>
-            </Transition>
+              TOP1
+            </div>
+            <CharacterBox
+              class="w-full aspect-square"
+              :character="characters[0]"
+              :isResult="true"
+            ></CharacterBox>
           </div>
         </div>
-      </div>
+      </Transition>
+      <Transition
+        appear
+        enter-from-class="opacity-0 translate-y-[10vh]"
+        enter-active-class="transition-all duration-500"
+      >
+        <div
+          class="h-[30%] flex justify-center w-full px-[10%] gap-[10%] delay-150"
+        >
+          <div class="h-full aspect-square">
+            <CharacterBox
+              class="w-full aspect-square"
+              :character="characters[1]"
+              :isResult="true"
+              :isResultSub="true"
+            ></CharacterBox>
+          </div>
+          <div class="h-full aspect-square">
+            <CharacterBox
+              class="w-full aspect-square"
+              :character="characters[2]"
+              :isResult="true"
+              :isResultSub="true"
+            ></CharacterBox>
+          </div>
+        </div>
+      </Transition>
+      <Transition
+        appear
+        enter-from-class="opacity-0 translate-y-[10vh]"
+        enter-active-class="transition-all duration-500"
+      >
+        <div class="h-[30%] flex w-full justify-center w px-[10%] gap-[10%]">
+          <div class="h-full aspect-square">
+            <CharacterBox
+              class="w-full aspect-square"
+              :character="characters[3]"
+              :isResult="true"
+              :isResultSub="true"
+            ></CharacterBox>
+          </div>
+          <div class="h-full aspect-square">
+            <CharacterBox
+              class="w-full aspect-square"
+              :character="characters[4]"
+              :isResult="true"
+              :isResultSub="true"
+            ></CharacterBox>
+          </div>
+        </div> </Transition
+      >s
     </div>
   </main>
 </template>

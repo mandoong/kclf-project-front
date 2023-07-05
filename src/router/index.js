@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import VoteView from "../views/VoteView.vue";
 import VoteResultView from "../views/VoteResultView.vue";
+import VoteRankingView from "../views/VoteRankingView.vue";
 import Management from "../views/Management.vue";
 import Login from "../views/LoginView.vue";
 import Character from "../views/management/CharacterManager.vue";
@@ -9,7 +10,7 @@ import CharacterInfo from "../views/management/Character.id.vue";
 import DocumentManager from "../views/management/DocumentManager.vue";
 import CreateCharacter from "../views/management/CreateCharacter.vue";
 import axios from "axios";
-import { Auth } from "../service/Repository";
+import { Auth, Service } from "../service/Repository";
 import { API } from "../service/API";
 // import Login from "../views/LoginView.vue";
 
@@ -20,16 +21,25 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
+      meta: { voteAt: true },
     },
     {
       path: "/vote",
       name: "vote",
       component: VoteView,
+      meta: { voteAt: true },
     },
     {
       path: "/vote/result",
       name: "voteResult",
       component: VoteResultView,
+      meta: { voteAt: true },
+    },
+    {
+      path: "/vote/rank",
+      name: "voteRank",
+      component: VoteRankingView,
+      meta: { voteAt: true },
     },
 
     {
@@ -89,6 +99,11 @@ router.beforeEach(async (to, from, next) => {
     }
   } else {
     next();
+  }
+  // const result = await Service.GetDocumentSetting();
+  // const voteEndDate = result.data.vote_at;
+
+  if (to.meta.voteAt) {
   }
 });
 
