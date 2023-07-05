@@ -41,7 +41,12 @@
 
     <div class="w-full flex justify-center gap-[2.7%]">
       <div class="w-[5.8%]">
-        <LeftArrow width="100%" :onStroke="true" color="#FFDA22"></LeftArrow>
+        <LeftArrow
+          width="100%"
+          :onStroke="true"
+          color="#FFDA22"
+          @click="onClickPrevCharacterList"
+        ></LeftArrow>
       </div>
       <div class="flex justify-center items-center flex-col mt-[0.5vh]">
         <div
@@ -55,9 +60,10 @@
               appear
               enter-from-class="opacity-0 translate-y-10"
               enter-active-class="transition-all duration-500 "
+              leave-active-class="hidden "
             >
               <div
-                v-for="(item, i) in characters"
+                v-for="(item, i) in prevCharacters"
                 :key="item"
                 :style="{ transitionDelay: `${i * 50}ms` }"
                 @click="onClickSelectCharacter(item.id)"
@@ -79,7 +85,12 @@
         </div>
       </div>
       <div class="w-[5.8%]">
-        <RightArrow width="100%" :onStroke="true" color="#FFDA22"></RightArrow>
+        <RightArrow
+          width="100%"
+          :onStroke="true"
+          color="#FFDA22"
+          @click="onClickNextCharacterList"
+        ></RightArrow>
       </div>
     </div>
 
@@ -173,6 +184,9 @@ export default {
 
       characters: null,
 
+      PageCount: 1,
+      prevCharacters: [],
+
       selectCharacters: [],
 
       service: null,
@@ -202,10 +216,37 @@ export default {
     },
 
     async fetch() {
-      const characters = await Character.GetCharacterByPage();
+      const characters = await Character.GetAllCharacter();
       const service = await Service.GetDocumentSetting();
       this.service = service.data;
       this.characters = characters.data;
+      this.prevCharacters = this.characters.slice(0, 15);
+    },
+
+    onClickPrevCharacterList() {
+      console.log(this.prevCharacters);
+      if (this.PageCount > 1) {
+        this.PageCount = this.PageCount - 1;
+        this.prevCharacters = this.characters.slice(
+          (this.PageCount - 1) * 15,
+          this.PageCount * 15
+        );
+      }
+    },
+
+    onClickNextCharacterList() {
+      const max = parseInt(this.characters.length / 15);
+
+      if (this.PageCount < max + 2) {
+        this.PageCount = this.PageCount + 1;
+        this.prevCharacters = this.characters.slice(
+          (this.PageCount - 1) * 15,
+          this.PageCount * 15 > this.characters.length
+            ? this.characters.length
+            : this.PageCount * 15
+        );
+        console.log(max, this.prevCharacters);
+      }
     },
 
     onClickSelectCharacter(id) {
