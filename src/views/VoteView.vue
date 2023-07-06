@@ -227,7 +227,6 @@ export default {
     },
 
     onClickPrevCharacterList() {
-      console.log(this.prevCharacters);
       if (this.PageCount > 1) {
         this.PageCount = this.PageCount - 1;
         this.prevCharacters = this.characters.slice(
@@ -248,7 +247,6 @@ export default {
             ? this.characters.length
             : this.PageCount * 15
         );
-        console.log(max, this.prevCharacters);
       }
     },
 
@@ -257,12 +255,10 @@ export default {
         this.selectCharacters = this.selectCharacters.filter(
           (e) => e.id !== id
         );
-        console.log(this.selectCharacters);
       } else {
         if (this.selectCharacters.length < 3) {
           const character = this.characters.find((e) => e.id === id);
           this.selectCharacters.push(character);
-          console.log(this.selectCharacters);
         }
       }
     },

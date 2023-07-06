@@ -172,7 +172,6 @@ export default {
 
       this.isImage = image;
       this.onDeleteImageModal = true;
-      console.log(image.id);
     },
 
     async onChangeInputFile(e) {

@@ -86,8 +86,6 @@ export default {
     upPage() {
       if (this.imagesPage < this.character.images.length - 1) {
         this.imagesPage = this.imagesPage + 1;
-        this.isImage = this.character.images[this.imagesPage].image;
-        console.log(this.isImage);
       }
     },
 
@@ -95,7 +93,6 @@ export default {
       if (this.imagesPage > 0) {
         this.imagesPage = this.imagesPage - 1;
         this.isImage = this.character.images[this.imagesPage].image;
-        console.log(this.isImage);
       }
     },
   },
