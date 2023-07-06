@@ -1,5 +1,5 @@
 <template>
-  <main class="w-full h-full">
+  <main>
     <div
       v-if="service"
       class="font-miwon text-white flex justify-center items-center flex-col"
