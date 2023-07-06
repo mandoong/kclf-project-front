@@ -1,11 +1,11 @@
 <template>
-  <main>
+  <main class="w-full h-full">
     <div
       v-if="service"
-      class="font-miwon h-[31vw] text-white flex justify-center items-center flex-col gap-1"
+      class="font-miwon text-white flex justify-center items-center flex-col"
       :style="{
-        textShadow: '0.6vw 0.6vw 4px #000000',
-        '-webkit-text-stroke': '0.2vw black',
+        textShadow: '0.4vh 0.4vh 4px #000000',
+        '-webkit-text-stroke': '0.1vh black',
       }"
     >
       <Transition
@@ -13,7 +13,7 @@
         enter-from-class="opacity-0 translate-y-10"
         enter-active-class="transition-all duration-500"
       >
-        <div v-if="service" class="w-full text-center mt-[5vh] text-[8.3vw]">
+        <div v-if="service" class="flex-1 text-center text-[4.7vh]">
           {{ service.title }}
         </div>
       </Transition>
@@ -24,7 +24,7 @@
       >
         <div
           v-if="service"
-          class="w-full delay-[200ms] -mt-[1vh] text-center text-[8.3vw]"
+          class="flex-1 delay-[200ms] -mt-[1%] text-center text-[4.7vh]"
         >
           {{ service.year }}
         </div>
@@ -32,7 +32,7 @@
     </div>
 
     <div v-if="!service">
-      <div class="w-full h-[31vw]"></div>
+      <div class="w-full h-full"></div>
     </div>
   </main>
 </template>

@@ -6,6 +6,7 @@
         <tr class="h-10 truncate text-left">
           <th class="pl-4 w-[10%]">ID</th>
           <th class="px-4 w-[20%]">이름</th>
+          <th class="px-4 w-[20%]">현재 득표수</th>
           <th class="px-4 w-[20%]">생성날짜</th>
           <th class="px-4 w-[20%]">업데이트 날짜</th>
         </tr>
@@ -19,6 +20,7 @@
         >
           <td class="px-4">{{ item.id }}</td>
           <td class="px-4">{{ item.name }}</td>
+          <td class="px-4">{{ item.vote_count }}</td>
 
           <td class="px-4">{{ dateFomat(item.created_at) }}</td>
           <td class="px-4">{{ dateFomat(item.updated_at) }}</td>

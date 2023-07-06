@@ -1,38 +1,39 @@
 <template>
-  <main>
+  <main class="w-full h-full flex flex-col">
     <div
       v-if="service"
-      class="font-miwon text-white flex justify-center items-center flex-col gap-1"
+      class="font-miwon h-[14%] text-white flex justify-center items-center flex-col gap-1"
       :style="{
-        textShadow: '0.6vw 0.6vw 4px #000000',
-        '-webkit-text-stroke': '0.2vw black',
+        textShadow: '0.3vh 0.3vh 4px #000000',
+        '-webkit-text-stroke': '0.1vh black',
       }"
     >
-      <div class="w-full flex mt-[1.7vh]">
-        <div class="w-[15%]"></div>
-        <div class="flex-1 text-center text-[7.4vw]">
+      <div class="w-full flex-1 items-center flex mt-[1.7vh]">
+        <div class="w-[10%]"></div>
+        <div class="w-[80%] text-center text-[4.2vh]">
           {{ service.title }}
         </div>
-        <div class="w-[15%] flex justify-center items-center">
-          <button class="w-[35%]" @click="$router.push('/')">
+        <div class="w-[10%] h-full flex items-center">
+          <button class="h-[50%]" @click="$router.push('/')">
             <img
-              class="w-full aspect-square"
+              class="h-full aspect-square"
               src="../assets/iconmonstr-home-4-240.png"
             />
           </button>
         </div>
       </div>
-      <div class="w-full -mt-[1vh] text-center text-[7.4vw]">
+      <div class="w-full flex-1 -mt-[1vh] text-center text-[4.2vh]">
         {{ service.year }}
       </div>
     </div>
-    <div v-if="!service" class="h-[13.4vh]"></div>
-    <div
-      class="font-miwon mt-[1vh] leading-[3vh] text-[#FFDA22] flex justify-center items-center flex-col text-center text-[5.5vw]"
-      :style="{
-        textShadow: '0.5vw 0.5vw 6px #000000',
 
-        '-webkit-text-stroke': '0.15vw black',
+    <div v-if="!service" class="h-[14%]"></div>
+    <div
+      class="font-miwon h-[5%] leading-[3vh] text-[#FFDA22] flex justify-center items-center flex-col text-center text-[3.3vh]"
+      :style="{
+        textShadow: '0.3vh 0.3vh 6px #000000',
+
+        '-webkit-text-stroke': '0.1vh black',
       }"
     >
       TOP 5
@@ -40,7 +41,7 @@
 
     <div
       v-if="characters"
-      class="flex flex-col w-full h-[70vh] mt-[10%] gap-[3%]"
+      class="flex flex-col w-full h-[81%] py-[10%] gap-[3%]"
     >
       <Transition
         appear
@@ -54,7 +55,7 @@
               src="../assets/crown.png"
             />
             <div
-              class="absolute w-[40%] text-center text-[3vw] font-tmon -top-[3%] z-20"
+              class="absolute w-[40%] text-center text-[2vh] font-tmon -top-[3%] z-20"
             >
               TOP1
             </div>
@@ -114,8 +115,8 @@
               :isResultSub="true"
             ></CharacterBox>
           </div>
-        </div> </Transition
-      >s
+        </div>
+      </Transition>
     </div>
   </main>
 </template>

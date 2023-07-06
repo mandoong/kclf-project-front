@@ -1,38 +1,39 @@
 <template>
-  <main>
+  <main class="w-full h-full flex flex-col">
     <div
       v-if="service"
-      class="font-miwon text-white flex justify-center items-center flex-col gap-1"
+      class="font-miwon h-[14%] text-white flex justify-center items-center flex-col gap-1"
       :style="{
-        textShadow: '0.6vw 0.6vw 4px #000000',
-        '-webkit-text-stroke': '0.2vw black',
+        textShadow: '0.3vh 0.3vh 4px #000000',
+        '-webkit-text-stroke': '0.1vh black',
       }"
     >
-      <div class="w-full flex mt-[1.7vh]">
-        <div class="w-[15%]"></div>
-        <div class="flex-1 text-center text-[7.4vw]">
+      <div class="w-full flex-1 items-center flex mt-[1.7vh]">
+        <div class="w-[10%]"></div>
+        <div class="w-[80%] text-center text-[4.2vh]">
           {{ service.title }}
         </div>
-        <div class="w-[15%] flex justify-center items-center">
-          <button class="w-[35%]" @click="$router.push('/')">
+        <div class="w-[10%] h-full flex items-center">
+          <button class="h-[50%]" @click="$router.push('/')">
             <img
-              class="w-full aspect-square"
+              class="h-full aspect-square"
               src="../assets/iconmonstr-home-4-240.png"
             />
           </button>
         </div>
       </div>
-      <div class="w-full -mt-[1vh] text-center text-[7.4vw]">
+      <div class="w-full flex-1 -mt-[1vh] text-center text-[4.2vh]">
         {{ service.year }}
       </div>
     </div>
-    <div v-if="!service" class="h-[13.4vh]"></div>
-    <div
-      class="font-miwon mt-[1vh] leading-[3vh] text-[#FFDA22] flex justify-center items-center flex-col text-center text-[5.5vw]"
-      :style="{
-        textShadow: '0.5vw 0.5vw 6px #000000',
 
-        '-webkit-text-stroke': '0.15vw black',
+    <div v-if="!service" class="h-[14%]"></div>
+    <div
+      class="font-miwon h-[5%] leading-[3vh] text-[#FFDA22] flex justify-center items-center flex-col text-center text-[3.3vh]"
+      :style="{
+        textShadow: '0.3vh 0.3vh 6px #000000',
+
+        '-webkit-text-stroke': '0.1vh black',
       }"
     >
       투표 현황
@@ -46,7 +47,11 @@
           class="relative flex items-center flex-1 w-full"
         >
           <div class="h-full p-[1vh] aspect-square z-10">
-            <CharacterBox :character="item" :isResult="true"></CharacterBox>
+            <CharacterBox
+              :character="item"
+              :isResult="true"
+              :isRank="true"
+            ></CharacterBox>
           </div>
           <div
             class="absolute w-full h-full flex items-center pl-[10vh] gap-[5%]"
@@ -72,7 +77,7 @@
               enter-active-class="transition-all duration-500"
             >
               <div
-                class="text-[3.5vw] w-[20%] font-tmon text-[#FDFFE3] top-0"
+                class="text-[2vh] w-[20%] font-tmon text-[#FDFFE3] top-0"
                 :style="{
                   transitionDelay: `${i * 100 + 300}ms`,
                 }"

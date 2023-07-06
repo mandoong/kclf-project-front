@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import HomeContainer from "../views/HomeContainer.vue";
 import VoteView from "../views/VoteView.vue";
 import VoteResultView from "../views/VoteResultView.vue";
 import VoteRankingView from "../views/VoteRankingView.vue";
@@ -20,26 +21,38 @@ const router = createRouter({
   routes: [
     {
       path: "/",
+      redirect: "/home/main",
+    },
+    {
+      path: "/home",
       name: "home",
-      component: HomeView,
+      component: HomeContainer,
       meta: { voteAt: true },
-    },
-    {
-      path: "/vote",
-      name: "vote",
-      component: VoteView,
-      meta: { voteAt: true },
-    },
-    {
-      path: "/vote/result",
-      name: "voteResult",
-      component: VoteResultView,
-    },
-    {
-      path: "/vote/rank",
-      name: "voteRank",
-      component: VoteRankingView,
-      meta: { voteAt: true },
+      children: [
+        {
+          path: "main",
+          name: "main",
+          component: HomeView,
+          meta: { voteAt: true },
+        },
+        {
+          path: "vote",
+          name: "vote",
+          component: VoteView,
+          meta: { voteAt: true },
+        },
+        {
+          path: "vote/result",
+          name: "voteResult",
+          component: VoteResultView,
+        },
+        {
+          path: "vote/rank",
+          name: "voteRank",
+          component: VoteRankingView,
+          meta: { voteAt: true },
+        },
+      ],
     },
 
     {
@@ -98,10 +111,14 @@ router.beforeEach(async (to, from, next) => {
       next("/_admin/login");
     }
   } else if (to.meta.voteAt) {
-    const result = await Service.GetDocumentSetting();
-    const voteEndDate = result.data.vote_at;
+    let voteDate = window.localStorage.getItem("voteDate");
+    if (!voteDate) {
+      const result = await Service.GetDocumentSetting();
+      voteDate = result.data.vote_at;
+      window.localStorage.setItem("voteDate", voteDate);
+    }
     const now = dayjs();
-    let daydiff = dayjs(voteEndDate).diff(now, "day", true);
+    let daydiff = dayjs(voteDate).diff(now, "day", true);
 
     if (daydiff <= 0) {
       next("/vote/result");

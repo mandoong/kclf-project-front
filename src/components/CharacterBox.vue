@@ -3,8 +3,8 @@
     <IconNotice
       v-if="!isResult"
       @click.stop
-      width="3.7vw"
-      class="absolute top-[1vh] right-[2vw] z-10"
+      width="2vh"
+      class="absolute top-[2vh] right-[2vh] z-10"
       @click="$emit('onModal')"
     ></IconNotice>
     <div
@@ -35,7 +35,6 @@
       <IconHeart
         v-if="onSelect"
         class="w-[40%] z-10 scale-100 transition-all duration-200"
-        width="100%"
       ></IconHeart>
     </Transition>
     <img src="../assets/TagIcon.png" class="absolute w-[92%] bottom-0" />
@@ -43,7 +42,13 @@
     <div
       class="absolute font-tmon bottom-0"
       :class="
-        isResult ? (isResultSub ? 'text-[1.5vh]' : 'text-[2vh] ') : 'text-[2vw]'
+        isResult
+          ? isResultSub
+            ? 'text-[1.5vh]'
+            : isRank
+            ? 'text-[1.2vh]'
+            : 'text-[2vh] '
+          : 'text-[1.2vh]'
       "
     >
       {{ character.name }}
@@ -61,6 +66,7 @@ export default {
     onSelect: false,
     isResult: false,
     isResultSub: false,
+    isRank: false,
   },
   components: {
     IconNotice,

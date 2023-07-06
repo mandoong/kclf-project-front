@@ -4,6 +4,7 @@
       class="relative flex justify-center items-center"
       :style="{
         width: width,
+        height: height,
         aspectRatio: aspectRatio,
       }"
     >
@@ -11,8 +12,8 @@
       <IconButton class="absolute w-[95%]"></IconButton>
 
       <div
-        class="flex font-tmon text-[5.4vw] w-full h-full text-[#656DF3] justify-center items-center z-10"
-        :style="{ '-webkit-text-stroke': '0.1vw white' }"
+        class="flex font-tmon text-[3vh] w-full h-full text-[#656DF3] justify-center items-center z-10"
+        :style="{ '-webkit-text-stroke': '0.1vh white' }"
         @click="$emit('onClickEvent')"
       >
         {{ text }}
