@@ -12,6 +12,7 @@ import CreateCharacter from "../views/management/CreateCharacter.vue";
 import axios from "axios";
 import { Auth, Service } from "../service/Repository";
 import { API } from "../service/API";
+import dayjs from "dayjs";
 // import Login from "../views/LoginView.vue";
 
 const router = createRouter({
@@ -33,7 +34,6 @@ const router = createRouter({
       path: "/vote/result",
       name: "voteResult",
       component: VoteResultView,
-      meta: { voteAt: true },
     },
     {
       path: "/vote/rank",
@@ -97,13 +97,19 @@ router.beforeEach(async (to, from, next) => {
     } else {
       next("/_admin/login");
     }
+  } else if (to.meta.voteAt) {
+    const result = await Service.GetDocumentSetting();
+    const voteEndDate = result.data.vote_at;
+    const now = dayjs();
+    let daydiff = dayjs(voteEndDate).diff(now, "day", true);
+
+    if (daydiff <= 0) {
+      next("/vote/result");
+    } else {
+      next();
+    }
   } else {
     next();
-  }
-  // const result = await Service.GetDocumentSetting();
-  // const voteEndDate = result.data.vote_at;
-
-  if (to.meta.voteAt) {
   }
 });
 

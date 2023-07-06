@@ -10,11 +10,6 @@
           <div class="text-5xl">KCLF</div>
           <div>관리자 서비스</div>
         </div>
-        <div class="w-full mt-20 text-end text-lg px-4">
-          <div>서비스 이용에 문제발생시</div>
-          <div>아래 이메일로 문의 바랍니다.</div>
-          <div class="mt-4">lj0566@gmail.com</div>
-        </div>
         <div></div>
       </div>
 
