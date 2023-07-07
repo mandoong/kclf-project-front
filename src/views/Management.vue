@@ -8,7 +8,7 @@
         <Bars3Icon class="h-12 w-12 text-gray-500" />
       </button>
       <div
-        class="mx-10 h-[80vh] text-[#6f7e95] relative overflow-y-scroll scrollbar-none hidden pc:block"
+        class="mx-10 h-[80vh] text-[#6f7e95] overflow-y-scroll scrollbar-none hidden pc:block"
       >
         <router-view />
       </div>

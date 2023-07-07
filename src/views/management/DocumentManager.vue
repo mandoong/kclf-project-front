@@ -1,6 +1,32 @@
 <template>
   <div class="">
     <Subtitle>서비스 관리</Subtitle>
+    <ManualTextBox>
+      <div class="font-bold">서비스 관리 메뉴입니다.</div>
+      해당 메뉴에서 서비스의 내용을 수정 할수 있습니다.<br /><br />
+      배경 이미지 <br />
+      <div class="indent-4">
+        - 메인 배경 이미지는 이벤트 최상위 페이지의 배경을 변경할수 있습니다.
+      </div>
+      <div class="indent-4">
+        - 서브 배경 이미지는 투표, 결과, 순위 페이지 등 최상위 페이지를 제외한
+        페이지의 배경을 변경할수 있습니다.
+      </div>
+      <div class="indent-4">
+        - 이미지 파일 크기는 5MB 이하로 업로드 해주십시오
+      </div>
+      <div class="indent-4">
+        - 배경 이미지 업로드 후 파일 선택 시 즉시 적용 됩니다. 이용에 참고
+        바랍니다.
+      </div>
+      <br />
+
+      투표 종료 날짜 <br />
+      <div class="indent-4">
+        - 투표 종료날짜는 해당 날짜 00시를 기준으로 적용됩니다. 종료 날짜로 부터
+        이벤트 페이지는 결과 페이지가 보여지게 됩니다.
+      </div>
+    </ManualTextBox>
 
     <div class="bg-white w-full h-[80vh] p-6 flex flex-col justify-between">
       <div class="flex h-12 items-center">
@@ -180,12 +206,19 @@
         </div>
       </div>
     </ManagerModal>
+    <ManagerModal :onModal="onUploadqModal">
+      <div class="flex justify-center items-center h-20 text-xl">
+        이미지 파일 용량이 너무 큽니다.<br />
+        5MB 이하의 이미지만 허용가능합니다.
+      </div>
+    </ManagerModal>
   </div>
 </template>
 
 <script>
 import Subtitle from "../../components/Subtitle.vue";
 import ManagerModal from "../../components/ManagerModal.vue";
+import ManualTextBox from "../../components/ManualTextBox.vue";
 import { Service, Auth } from "../../service/Repository";
 import dayjs from "dayjs";
 export default {
@@ -200,6 +233,7 @@ export default {
       onPasswordModal: false,
       onPasswordErr: false,
       changePasswordErr: false,
+      onUploadqModal: false,
       successChange: false,
       voteDate: null,
 
@@ -232,6 +266,15 @@ export default {
     },
     onChangeInputFile(e) {
       const file = e.target.files[0];
+
+      if (file.size >= 5242880) {
+        this.onUploadqModal = true;
+        setTimeout(() => {
+          this.onUploadqModal = false;
+        }, 2000);
+
+        return "";
+      }
 
       if (this.onRef === "titleImage") {
         this.titleImage = file;
@@ -313,6 +356,6 @@ export default {
       }
     },
   },
-  components: { Subtitle, ManagerModal },
+  components: { Subtitle, ManagerModal, ManualTextBox },
 };
 </script>

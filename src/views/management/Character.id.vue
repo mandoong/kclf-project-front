@@ -1,6 +1,23 @@
 <template>
   <div>
     <Subtitle :isBack="true">캐릭터 상세</Subtitle>
+    <ManualTextBox>
+      <div class="font-bold">캐릭터 관리 메뉴입니다.</div>
+      캐릭터 이미지를 추가 하고 대표 이미지를 변경 할 수 있습니다.<br /><br />
+      이미지 업로드 <br />
+      <div class="indent-4">
+        - 케릭터 이미지를 클릭 하면 대표 이미지를 바꿀 수 있습니다.
+      </div>
+      <div class="indent-4">
+        - 캐릭터 이미지 파일은 jpg, jpeg, png 형식을 지원하며 파일 용량은 5MB
+        이하로 업로드 해주십시오.
+      </div>
+      <br />
+      캐릭터 삭제<br />
+      <div class="indent-4">
+        - 캐릭터 삭제 시 복구 불가 하오니 유의하여 삭제 해주십시오.
+      </div>
+    </ManualTextBox>
 
     <div class="bg-white w-full p-10 text-lg flex flex-col">
       <div class="flex h-10 items-center">
@@ -61,7 +78,6 @@
             <input
               class="hidden"
               ref="fileInput"
-              multiple
               type="file"
               @change="onChangeInputFile"
             />
@@ -125,6 +141,12 @@
         </div>
       </div>
     </ManagerModal>
+    <ManagerModal :onModal="onUploadqModal">
+      <div class="flex justify-center items-center h-20 text-xl">
+        이미지 파일 용량이 너무 큽니다.<br />
+        5MB 이하의 이미지만 허용가능합니다.
+      </div>
+    </ManagerModal>
   </div>
 </template>
 
@@ -133,6 +155,7 @@ import Subtitle from "../../components/Subtitle.vue";
 
 import ManagerModal from "../../components/ManagerModal.vue";
 import { XMarkIcon, PlusIcon } from "@heroicons/vue/24/outline";
+import ManualTextBox from "../../components/ManualTextBox.vue";
 import { Character } from "../../service/Repository";
 import { Auth } from "../../service/Repository";
 export default {
@@ -143,6 +166,7 @@ export default {
       onTitleModal: false,
       onDeleteCharacterModal: false,
       isImage: null,
+      onUploadqModal: false,
     };
   },
 
@@ -168,13 +192,20 @@ export default {
     },
 
     async onChangeInputFile(e) {
-      const files = e.target.files;
+      const file = e.target.files[0];
+
+      if (file.size >= 5242880) {
+        this.onUploadqModal = true;
+        setTimeout(() => {
+          this.onUploadqModal = false;
+        }, 2000);
+      }
 
       const id = this.character.id;
       const imageData = new FormData();
-      for (const file of files) {
-        imageData.append("files", file);
-      }
+
+      imageData.append("files", file);
+
       await Character.UploadCharacterImages(id, imageData);
 
       this.fetch();
@@ -210,6 +241,6 @@ export default {
       this.fetch();
     },
   },
-  components: { Subtitle, XMarkIcon, ManagerModal, PlusIcon },
+  components: { Subtitle, XMarkIcon, ManagerModal, PlusIcon, ManualTextBox },
 };
 </script>
