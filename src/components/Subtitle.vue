@@ -1,5 +1,7 @@
 <template>
-  <div class="w-full text-xl font-bold mb-10 h-12 flex justify-between">
+  <div
+    class="w-full text-xl sticky top-0 font-bold h-16 flex justify-between items-center bg-gray-100"
+  >
     <slot></slot>
     <button v-if="isBack">
       <XMarkIcon class="w-10" @click="$router.back()"></XMarkIcon>

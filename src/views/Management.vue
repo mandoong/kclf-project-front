@@ -7,7 +7,9 @@
       >
         <Bars3Icon class="h-12 w-12 text-gray-500" />
       </button>
-      <div class="mt-10 mx-10 h-[80vh] text-[#6f7e95] hidden pc:block">
+      <div
+        class="mx-10 h-[80vh] text-[#6f7e95] relative overflow-y-scroll scrollbar-none hidden pc:block"
+      >
         <router-view />
       </div>
       <div
@@ -76,12 +78,12 @@ export default {
         {
           title: "캐릭터",
           option: [
-            { name: "전체 캐릭터", href: "/_admin/character", img: "" },
+            { name: "캐릭터 관리", href: "/_admin/character", img: "" },
             { name: "캐릭터 등록", href: "/_admin/create", img: "" },
           ],
         },
         {
-          title: "문서",
+          title: "서비스",
           option: [{ name: "서비스 관리", href: "/_admin/document", img: "" }],
         },
         {

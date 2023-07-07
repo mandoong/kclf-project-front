@@ -65,13 +65,6 @@
               type="file"
               @change="onChangeInputFile"
             />
-
-            <div
-              class="absolute flex justify-center items-center -top-2 -right-2 w-5 aspect-square bg-gray-300 rounded-full"
-              @click="onTitleModal = true"
-            >
-              <XMarkIcon class="w-4"></XMarkIcon>
-            </div>
           </div>
         </div>
       </div>
