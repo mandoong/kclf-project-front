@@ -12,8 +12,8 @@
         - 캐릭터 이미지를 드래그 하려 순서를 변경할 수 있습니다.
       </div>
       <div class="indent-4">
-        - 캐릭터 이미지 파일은 jpg, jpeg, png 형식을 지원하며 파일 용량은 5MB
-        이하로 업로드 해주십시오.
+        - 캐릭터 이미지 파일은 jpg, jpeg, png 형식을 지원하며 원활한 서비스
+        이용을 위해 파일 용량은 5MB 이하로 업로드 해주십시오.
       </div>
       <br />
       캐릭터 삭제<br />
@@ -254,14 +254,6 @@ export default {
       await Character.ChangeCharacterTitleImage(id, imageId);
 
       this.fetch();
-    },
-
-    startDrag(event) {
-      console.log(event);
-    },
-
-    onDrag(event) {
-      console.log(event.target);
     },
 
     async changeImageOrder() {

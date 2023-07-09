@@ -15,8 +15,8 @@
       <div
         class="mt-10 mx-10 h-[80vh] flex justify-center items-center text-[#6f7e95] pc:hidden"
       >
-        <div>
-          해당 페이지는 PC에서만<br />
+        <div class="text-center">
+          해당 페이지는 PC환경에서만<br />
           확인가능합니다.
         </div>
       </div>
