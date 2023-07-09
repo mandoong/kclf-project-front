@@ -84,7 +84,10 @@ export default {
         },
         {
           title: "서비스",
-          option: [{ name: "서비스 관리", href: "/_admin/document", img: "" }],
+          option: [
+            { name: "서비스 관리", href: "/_admin/document", img: "" },
+            { name: "투표 관리", href: "/_admin/vote", img: "" },
+          ],
         },
         {
           title: "이벤트",

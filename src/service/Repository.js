@@ -74,6 +74,12 @@ export const Character = {
       .then((res) => res)
       .catch((err) => err);
   },
+
+  CharacterVoteCountClear: async () => {
+    return API.post(`/character/vote/clear`)
+      .then((res) => res)
+      .catch((err) => err);
+  },
 };
 
 export const Service = {

@@ -10,6 +10,7 @@ import Character from "../views/management/CharacterManager.vue";
 import CharacterInfo from "../views/management/Character.id.vue";
 import DocumentManager from "../views/management/DocumentManager.vue";
 import CreateCharacter from "../views/management/CreateCharacter.vue";
+import VoteManage from "../views/management/VoteManage.vue";
 import axios from "axios";
 import { Auth, Service } from "../service/Repository";
 import { API } from "../service/API";
@@ -88,6 +89,12 @@ const router = createRouter({
           name: "document",
           meta: { requiresAuth: true },
           component: DocumentManager,
+        },
+        {
+          path: "vote",
+          name: "voteManage",
+          meta: { requiresAuth: true },
+          component: VoteManage,
         },
       ],
     },

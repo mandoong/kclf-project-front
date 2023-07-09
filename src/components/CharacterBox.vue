@@ -11,10 +11,19 @@
       v-if="isResult"
       class="absolute rounded-full w-[95%] aspect-square bg-[#FDFFE3]"
     ></div>
-    <img
-      :src="character.title_image"
-      class="absolute rounded-full w-[70%] aspect-square object-contain cursor-pointer"
-    />
+    <Transition
+      enter-from-class="opacity-0"
+      enter-active-class="transition-all"
+      leave-to-class="opacity-0 "
+      leave-active-class="transition-all"
+    >
+      <img
+        v-show="onLoad"
+        :src="character.title_image"
+        class="absolute rounded-full w-[70%] aspect-square object-contain cursor-pointer duration-500"
+        :onload="imgOnLoad"
+      />
+    </Transition>
     <Transition
       enter-from-class="opacity-0 "
       enter-active-class="transition-all"
@@ -67,6 +76,17 @@ export default {
     isResult: false,
     isResultSub: false,
     isRank: false,
+  },
+
+  data() {
+    return {
+      onLoad: false,
+    };
+  },
+  methods: {
+    imgOnLoad() {
+      this.onLoad = true;
+    },
   },
   components: {
     IconNotice,

@@ -1,6 +1,7 @@
 <template>
   <div class="w-full h-screen flex justify-center items-center bg-gray-100">
     <div
+      @keydown.enter="onClickLogin()"
       class="w-2/3 h-2/3 bg-white flex justify-center shadow-2xl overflow-hidden rounded-xl items-center"
     >
       <div class="flex-1 h-full text-white bg-gray-400">

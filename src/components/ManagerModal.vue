@@ -19,18 +19,18 @@
 
         <div v-if="onButton" class="w-full flex-1">
           <div class="w-full h-12 flex justify-center gap-10 text-white">
-            <div
+            <button
               class="w-20 flex justify-center items-center rounded-lg bg-blue-500"
               @click="$emit('submit')"
             >
               예
-            </div>
-            <div
+            </button>
+            <button
               class="w-20 flex justify-center items-center rounded-lg bg-red-500"
               @click="$emit('close')"
             >
               아니오
-            </div>
+            </button>
           </div>
         </div>
       </div>

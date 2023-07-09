@@ -60,6 +60,7 @@
               TOP1
             </div>
             <CharacterBox
+              v-if="characters[0]"
               class="w-full aspect-square"
               :character="characters[0]"
               :isResult="true"
@@ -77,6 +78,7 @@
         >
           <div class="h-full aspect-square">
             <CharacterBox
+              v-if="characters[1]"
               class="w-full aspect-square"
               :character="characters[1]"
               :isResult="true"
@@ -85,6 +87,7 @@
           </div>
           <div class="h-full aspect-square">
             <CharacterBox
+              v-if="characters[2]"
               class="w-full aspect-square"
               :character="characters[2]"
               :isResult="true"
@@ -101,6 +104,7 @@
         <div class="h-[30%] flex w-full justify-center w px-[10%] gap-[10%]">
           <div class="h-full aspect-square">
             <CharacterBox
+              v-if="characters[3]"
               class="w-full aspect-square"
               :character="characters[3]"
               :isResult="true"
@@ -109,6 +113,7 @@
           </div>
           <div class="h-full aspect-square">
             <CharacterBox
+              v-if="characters[4]"
               class="w-full aspect-square"
               :character="characters[4]"
               :isResult="true"
