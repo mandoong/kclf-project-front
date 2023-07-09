@@ -19,6 +19,30 @@
       </div>
     </ManualTextBox>
 
+    <div>
+      <div
+        draggable="true"
+        class="w-30 mr-2"
+        v-for="i in arr1"
+        :key="i.name"
+        @dragstart="startDrag($event, i)"
+      >
+        {{ i.name }}
+      </div>
+    </div>
+    <div>
+      <div
+        draggable="true"
+        class="w-30 mr-2"
+        v-for="i in arr2"
+        :key="i.name"
+        @dragstart="startDrag($event, i)"
+        @dragenter="onDrag"
+      >
+        {{ i.name }}
+      </div>
+    </div>
+
     <div class="bg-white w-full p-10 text-lg flex flex-col">
       <div class="flex h-10 items-center">
         <div class="w-48">캐릭터 이름</div>
@@ -47,15 +71,16 @@
       <div class="flex-1">
         <div
           class="border-2 border-gray-200 w-full rounded-lg grid grid-cols-10 gap-2 mt-4 p-2"
+          @dragover="onDrag()"
         >
           <div
             class="relative border-4 rounded-lg aspect-square"
             :class="
               images.image === character.title_image ? 'border-yellow-400' : ''
             "
-            @click="onClickChangeCharacterTitleImage(images)"
             v-for="images in character.images"
             :key="images"
+            @click="onClickChangeCharacterTitleImage(images)"
           >
             <img
               class="w-full h-full object-contain object-center"
@@ -152,12 +177,15 @@
 
 <script>
 import Subtitle from "../../components/Subtitle.vue";
+import { defineComponent } from "vue";
 
 import ManagerModal from "../../components/ManagerModal.vue";
 import { XMarkIcon, PlusIcon } from "@heroicons/vue/24/outline";
 import ManualTextBox from "../../components/ManualTextBox.vue";
 import { Character } from "../../service/Repository";
 import { Auth } from "../../service/Repository";
+import draggable from "vuedraggable";
+
 export default {
   data() {
     return {
@@ -167,6 +195,20 @@ export default {
       onDeleteCharacterModal: false,
       isImage: null,
       onUploadqModal: false,
+      dragging: false,
+      enabled: true,
+      arr1: [
+        { name: "John", id: 1 },
+        { name: "Joao", id: 2 },
+        { name: "Jean", id: 3 },
+        { name: "Gerard", id: 4 },
+      ],
+      arr2: [
+        { name: "John", id: 1 },
+        { name: "Joao", id: 2 },
+        { name: "Jean", id: 3 },
+        { name: "Gerard", id: 4 },
+      ],
     };
   },
 
@@ -240,7 +282,22 @@ export default {
 
       this.fetch();
     },
+
+    startDrag(event, image) {
+      console.log(image);
+    },
+
+    onDrag(event) {
+      console.log(event.target);
+    },
   },
-  components: { Subtitle, XMarkIcon, ManagerModal, PlusIcon, ManualTextBox },
+  components: {
+    Subtitle,
+    XMarkIcon,
+    ManagerModal,
+    PlusIcon,
+    ManualTextBox,
+    draggable,
+  },
 };
 </script>

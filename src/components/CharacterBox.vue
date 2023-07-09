@@ -4,7 +4,7 @@
       v-if="!isResult"
       @click.stop
       width="2vh"
-      class="absolute top-[2vh] right-[2vh] z-10"
+      class="absolute top-[2vh] right-[2vh] z-10 cursor-pointer"
       @click="$emit('onModal')"
     ></IconNotice>
     <div
@@ -13,7 +13,7 @@
     ></div>
     <img
       :src="character.title_image"
-      class="absolute rounded-full w-[70%] aspect-square object-contain"
+      class="absolute rounded-full w-[70%] aspect-square object-contain cursor-pointer"
     />
     <Transition
       enter-from-class="opacity-0 "

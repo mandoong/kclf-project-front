@@ -43,6 +43,7 @@
     <div class="w-full flex-1 flex justify-center gap-[1vh]">
       <div class="w-[5.8%] flex justify-end">
         <LeftArrow
+          class="cursor-pointer"
           width="3vh"
           :onStroke="true"
           color="#FFDA22"
@@ -86,6 +87,7 @@
       </div>
       <div class="w-[5.8%]">
         <RightArrow
+          class="cursor-pointer"
           width="3vh"
           :onStroke="true"
           color="#FFDA22"
