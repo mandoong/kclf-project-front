@@ -44,34 +44,40 @@
         <div class="w-48">캐릭터 이미지</div>
       </div>
 
-      <div class="flex-1">
-        <div
-          class="border-2 border-gray-200 w-full rounded-lg grid grid-cols-10 gap-2 mt-4 p-2"
-        >
-          <div
-            class="relative border-4 rounded-lg aspect-square"
-            :class="
-              images.image === character.title_image ? 'border-yellow-400' : ''
-            "
-            v-for="images in character.images"
-            :key="images"
-            @click="onClickChangeCharacterTitleImage(images)"
+      <div v-if="character" class="flex-1">
+        <div class="border-2 border-gray-200 w-full h-48 rounded-lg flex p-2">
+          <draggable
+            class="dragArea list-group flex h-full gap-4"
+            :list="character.images"
+            @change="changeImageOrder"
           >
-            <img
-              class="w-full h-full object-contain object-center"
-              :src="images.image"
-              alt="미리 보기 이미지"
-            />
             <div
-              class="absolute flex justify-center items-center -top-2 -right-2 w-5 aspect-square bg-gray-300 rounded-full"
-              @click="onClickSelectImage(images)"
+              class="relative border-4 h-full rounded-lg aspect-square cursor-pointer"
+              :class="
+                images.image === character.title_image
+                  ? 'border-yellow-400'
+                  : ''
+              "
+              v-for="images in character.images"
+              :key="images"
+              @click="onClickChangeCharacterTitleImage(images)"
             >
-              <XMarkIcon class="w-4"></XMarkIcon>
+              <img
+                class="w-full h-full object-contain object-center"
+                :src="images.image"
+                alt="미리 보기 이미지"
+              />
+              <div
+                class="absolute cursor-pointer flex justify-center items-center -top-2 -right-2 w-6 aspect-square bg-gray-300 rounded-full"
+                @click="onClickSelectImage(images)"
+              >
+                <XMarkIcon class="w-5"></XMarkIcon>
+              </div>
             </div>
-          </div>
-
+          </draggable>
           <div
-            class="relative border-4 rounded-lg aspect-square flex justify-center text-gray-400 items-center hover:border-gray-400 hover:text-gray-500 cursor-pointer"
+            draggable="false"
+            class="relative border-4 ml-4 rounded-lg h-full aspect-square flex justify-center text-gray-400 items-center hover:border-gray-400 hover:text-gray-500 cursor-pointer"
             @click="openFileInput()"
           >
             <PlusIcon class="w-12" />
@@ -141,7 +147,7 @@
         </div>
       </div>
     </ManagerModal>
-    <ManagerModal :onModal="onUploadqModal">
+    <ManagerModal :onModal="onUploadModal">
       <div class="flex justify-center items-center h-20 text-xl">
         이미지 파일 용량이 너무 큽니다.<br />
         5MB 이하의 이미지만 허용가능합니다.
@@ -158,6 +164,7 @@ import ManagerModal from "../../components/ManagerModal.vue";
 import { XMarkIcon, PlusIcon } from "@heroicons/vue/24/outline";
 import ManualTextBox from "../../components/ManualTextBox.vue";
 import { Character } from "../../service/Repository";
+import { VueDraggableNext } from "vue-draggable-next";
 import { Auth } from "../../service/Repository";
 
 export default {
@@ -168,21 +175,9 @@ export default {
       onTitleModal: false,
       onDeleteCharacterModal: false,
       isImage: null,
-      onUploadqModal: false,
+      onUploadModal: false,
       dragging: false,
       enabled: true,
-      arr1: [
-        { name: "John", id: 1 },
-        { name: "Joao", id: 2 },
-        { name: "Jean", id: 3 },
-        { name: "Gerard", id: 4 },
-      ],
-      arr2: [
-        { name: "John", id: 1 },
-        { name: "Joao", id: 2 },
-        { name: "Jean", id: 3 },
-        { name: "Gerard", id: 4 },
-      ],
     };
   },
 
@@ -264,6 +259,17 @@ export default {
     onDrag(event) {
       console.log(event.target);
     },
+
+    async changeImageOrder() {
+      const ids = this.character.images.map((e) => {
+        return e.id;
+      });
+
+      const id = this.character.id;
+      await Character.changeCharacterImageOrder(id, ids);
+
+      this.fetch();
+    },
   },
   components: {
     Subtitle,
@@ -271,6 +277,7 @@ export default {
     ManagerModal,
     PlusIcon,
     ManualTextBox,
+    draggable: VueDraggableNext,
   },
 };
 </script>

@@ -80,6 +80,12 @@ export const Character = {
       .then((res) => res)
       .catch((err) => err);
   },
+
+  changeCharacterImageOrder: async (id, ids) => {
+    return API.post(`/character/${id}/order`, { ids: ids })
+      .then((res) => res)
+      .catch((err) => err);
+  },
 };
 
 export const Service = {
