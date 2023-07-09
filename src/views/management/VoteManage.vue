@@ -1,6 +1,24 @@
 <template>
   <main>
     <Subtitle :isBack="true">투표 관리</Subtitle>
+    <ManualTextBox>
+      <div class="font-bold">투표 관리 메뉴입니다.</div>
+      현재 투표 순위를 확인하고 결과 페이지를 미리볼수 있습니다..<br /><br />
+      캐릭터 순위 <br />
+      <div class="indent-4">
+        - 캐릭터 순위는 실시간으로 적용되며 현재 시점에 따른 결과 페이지를
+        확인할 수 있습니다.
+      </div>
+      <div class="indent-4">
+        - TOP 5 이후 캐릭터 투표수는 캐릭터 목록에서 확인 가능합니다.
+      </div>
+      <br />
+      투표수 초기화<br />
+      <div class="indent-4">
+        - 투표수 초기화 시 모든 캐릭터의 득표수를 0으로 만듭니다. 투표 진행
+        중에는 유의 하시고 사용 바랍니다.
+      </div>
+    </ManualTextBox>
 
     <div class="bg-white w-full p-10 text-xl flex flex-col">
       <div class="font-bold">현재 Top 5 캐릭터</div>
@@ -18,7 +36,7 @@
           {{ character.vote_count }}
         </div>
       </div>
-      <div v-if="!characters.length" class="my-10">
+      <div v-if="characters && !characters.length" class="my-10">
         현재 투표수가 없어 데이터를 표시할 수 없습니다.
       </div>
       <br />
@@ -64,6 +82,7 @@
 import Subtitle from "../../components/Subtitle.vue";
 import { Character } from "../../service/Repository";
 import ManagerModal from "../../components/ManagerModal.vue";
+import ManualTextBox from "../../components/ManualTextBox.vue";
 export default {
   data() {
     return {
@@ -93,6 +112,6 @@ export default {
       this.onModal = false;
     },
   },
-  components: { Subtitle, ManagerModal },
+  components: { Subtitle, ManagerModal, ManualTextBox },
 };
 </script>
