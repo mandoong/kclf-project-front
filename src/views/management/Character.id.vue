@@ -4,9 +4,12 @@
     <ManualTextBox>
       <div class="font-bold">캐릭터 관리 메뉴입니다.</div>
       캐릭터 이미지를 추가 하고 대표 이미지를 변경 할 수 있습니다.<br /><br />
-      이미지 업로드 <br />
+      캐릭터 이미지 <br />
       <div class="indent-4">
-        - 케릭터 이미지를 클릭 하면 대표 이미지를 바꿀 수 있습니다.
+        - 캐릭터 이미지를 클릭 하면 대표 이미지를 바꿀 수 있습니다.
+      </div>
+      <div class="indent-4">
+        - 캐릭터 이미지를 드래그 하려 순서를 변경할 수 있습니다.
       </div>
       <div class="indent-4">
         - 캐릭터 이미지 파일은 jpg, jpeg, png 형식을 지원하며 파일 용량은 5MB
@@ -32,12 +35,12 @@
 
       <div class="flex h-10 items-center">
         <div class="w-48">생성 날짜</div>
-        <div>{{ character.created_at }}</div>
+        <div>{{ dateFormat(character.created_at) }}</div>
       </div>
 
       <div class="flex h-10 items-center">
         <div class="w-48">수정 날짜</div>
-        <div>{{ character.updated_at }}</div>
+        <div>{{ dateFormat(character.updated_at) }}</div>
       </div>
 
       <div class="flex h-10 items-center mt-10">
@@ -159,6 +162,7 @@
 <script>
 import Subtitle from "../../components/Subtitle.vue";
 import { defineComponent } from "vue";
+import dayjs from "dayjs";
 
 import ManagerModal from "../../components/ManagerModal.vue";
 import { XMarkIcon, PlusIcon } from "@heroicons/vue/24/outline";
@@ -269,6 +273,10 @@ export default {
       await Character.changeCharacterImageOrder(id, ids);
 
       this.fetch();
+    },
+
+    dateFormat(date) {
+      return dayjs(date).format("YYYY-MM-DD  HH:MM");
     },
   },
   components: {

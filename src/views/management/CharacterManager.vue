@@ -13,7 +13,7 @@
       </template>
       <template v-slot:body>
         <tr
-          class="h-8 truncate poin cursor-pointer hover:bg-gray-300"
+          class="h-8 truncate cursor-pointer hover:bg-gray-300"
           v-for="item in characters"
           :key="item"
           @click="$router.push(`/_admin/character/${item.id}`)"
@@ -22,8 +22,8 @@
           <td class="px-4">{{ item.name }}</td>
           <td class="px-4">{{ item.vote_count }}</td>
 
-          <td class="px-4">{{ dateFomat(item.created_at) }}</td>
-          <td class="px-4">{{ dateFomat(item.updated_at) }}</td>
+          <td class="px-4">{{ dateFormat(item.created_at) }}</td>
+          <td class="px-4">{{ dateFormat(item.updated_at) }}</td>
         </tr>
       </template>
     </ContentTable>
@@ -56,7 +56,7 @@ export default {
       this.characters = character.data;
     },
 
-    dateFomat(date) {
+    dateFormat(date) {
       return dayjs(date).format("YYYY-MM-DD  HH:MM");
     },
   },
