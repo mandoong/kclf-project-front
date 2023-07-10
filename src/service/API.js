@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://6ah60v7ki9.execute-api.ap-northeast-2.amazonaws.com/dev", // API의 기본 URL을 설정합니다.
+  baseURL: "https://api.mangglevote.com", // API의 기본 URL을 설정합니다.
 });
 
 const Token = window.localStorage.getItem("Token") || null;
