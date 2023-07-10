@@ -72,7 +72,7 @@
               />
               <div
                 class="absolute cursor-pointer flex justify-center items-center -top-2 -right-2 w-6 aspect-square bg-gray-300 rounded-full"
-                @click="onClickSelectImage(images)"
+                @click.stop="onClickSelectImage(images)"
               >
                 <XMarkIcon class="w-5"></XMarkIcon>
               </div>
