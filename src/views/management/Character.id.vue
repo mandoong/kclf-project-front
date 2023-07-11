@@ -35,12 +35,12 @@
 
       <div class="flex h-10 items-center">
         <div class="w-48">생성 날짜</div>
-        <div>{{ dateFormat(character.created_at) }}</div>
+        <div>{{ dateChange(character.created_at) }}</div>
       </div>
 
       <div class="flex h-10 items-center">
         <div class="w-48">수정 날짜</div>
-        <div>{{ dateFormat(character.updated_at) }}</div>
+        <div>{{ dateChange(character.updated_at) }}</div>
       </div>
 
       <div class="flex h-10 items-center mt-10">
@@ -163,6 +163,8 @@
 import Subtitle from "../../components/Subtitle.vue";
 import { defineComponent } from "vue";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 
 import ManagerModal from "../../components/ManagerModal.vue";
 import { XMarkIcon, PlusIcon } from "@heroicons/vue/24/outline";
@@ -210,9 +212,9 @@ export default {
       const file = e.target.files[0];
 
       if (file.size >= 5242880) {
-        this.onUploadqModal = true;
+        this.onUploadModal = true;
         setTimeout(() => {
-          this.onUploadqModal = false;
+          this.onUploadModal = false;
         }, 2000);
       }
 
@@ -267,7 +269,7 @@ export default {
       this.fetch();
     },
 
-    dateFormat(date) {
+    dateChange(date) {
       return dayjs(date).format("YYYY-MM-DD  HH:mm");
     },
   },

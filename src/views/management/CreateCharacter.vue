@@ -74,19 +74,25 @@
             class="border-2 border-gray-200 w-full rounded-lg grid grid-cols-8 gap-2 mt-10 p-2"
           >
             <div
-              class="border-4 rounded-lg aspect-square"
+              v-for="file in previewUrls"
+              :key="file"
+              class="border-4 rounded-lg aspect-square relative"
               :class="
                 titleImage.name === file.file.name ? 'border-yellow-400' : ''
               "
               @click="titleImage = file.file"
-              v-for="file in previewUrls"
-              :key="file"
             >
               <img
                 class="w-full h-full object-contain object-center"
                 :src="file.url"
                 alt="미리 보기 이미지"
               />
+              <div
+                class="absolute cursor-pointer flex justify-center items-center -top-2 -right-2 w-6 aspect-square bg-gray-300 rounded-full"
+                @click.stop="onClickFileDelete(file)"
+              >
+                <XMarkIcon class="w-5"></XMarkIcon>
+              </div>
             </div>
             <div
               class="relative border-4 rounded-lg aspect-square flex justify-center text-gray-400 items-center hover:border-gray-400 hover:text-gray-500 cursor-pointer"
@@ -144,7 +150,7 @@
 import Subtitle from "../../components/Subtitle.vue";
 import ManagerModal from "../../components/ManagerModal.vue";
 import ManualTextBox from "../../components/ManualTextBox.vue";
-import { PlusIcon } from "@heroicons/vue/24/solid";
+import { PlusIcon, XMarkIcon } from "@heroicons/vue/24/solid";
 import { Auth, Character } from "../../service/Repository";
 export default {
   data() {
@@ -177,13 +183,13 @@ export default {
 
       files = [...files].filter((e) => e.size < 5242880);
 
-      this.fileList = files;
-      this.titleImage = files[0];
+      this.fileList = [...this.fileList, ...files];
+      this.titleImage = this.fileList[0];
 
       this.previewUrls = [];
 
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
+      for (let i = 0; i < this.fileList.length; i++) {
+        const file = this.fileList[i];
         const reader = new FileReader();
 
         reader.onload = (e) => {
@@ -238,7 +244,25 @@ export default {
         }, 2000);
       }
     },
+
+    onClickFileDelete(file) {
+      this.fileList = this.fileList.filter((e) => e.name !== file.file.name);
+
+      this.previewUrls = [];
+
+      for (let i = 0; i < this.fileList.length; i++) {
+        const file = this.fileList[i];
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          const url = e.target.result;
+          this.previewUrls.push({ file, url });
+        };
+
+        reader.readAsDataURL(file);
+      }
+    },
   },
-  components: { Subtitle, ManagerModal, PlusIcon, ManualTextBox },
+  components: { Subtitle, ManagerModal, PlusIcon, ManualTextBox, XMarkIcon },
 };
 </script>

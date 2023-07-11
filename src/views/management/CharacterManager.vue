@@ -1,6 +1,24 @@
 <template>
   <div>
-    <Subtitle>캐릭터 관리</Subtitle>
+    <div class="flex">
+      <Subtitle>캐릭터 관리</Subtitle>
+      <Transition
+        enter-from-class="opacity-0"
+        enter-active-class="transition-all"
+        leave-to-class="opacity-0"
+        leave-active-class="transition-all"
+      >
+        <div v-show="selectList.length" class="w-full flex justify-end">
+          <button
+            class="bg-red-500 text-white rounded-md h-10 px-10"
+            @click="onDeleteCharacterModal = true"
+          >
+            삭제하기
+          </button>
+        </div>
+      </Transition>
+    </div>
+
     <ContentTable>
       <template v-slot:head>
         <tr class="h-10 truncate text-left">
@@ -56,22 +74,6 @@
         </tr>
       </template>
     </ContentTable>
-
-    <Transition
-      enter-from-class="opacity-0"
-      enter-active-class="transition-all"
-      leave-to-class="opacity-0"
-      leave-active-class="transition-all"
-    >
-      <div v-show="selectList.length" class="mt-10 w-full flex justify-end">
-        <button
-          class="bg-red-500 text-white rounded-md h-10 px-10"
-          @click="onDeleteCharacterModal = true"
-        >
-          삭제하기
-        </button>
-      </div>
-    </Transition>
 
     <ManagerModal
       :onModal="onDeleteCharacterModal"
