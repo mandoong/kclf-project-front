@@ -51,14 +51,16 @@
       </div>
 
       <div v-if="character" class="flex-1">
-        <div class="border-2 border-gray-200 w-full h-48 rounded-lg flex p-2">
+        <div
+          class="border-2 border-gray-200 w-full rounded-lg flex flex-wrap p-2 items-center gap-4"
+        >
           <draggable
-            class="dragArea list-group flex h-full gap-4"
+            class="dragArea list-group flex h-36 gap-4 flex-wrap"
             :list="character.images"
             @change="changeImageOrder"
           >
             <div
-              class="relative border-4 h-full rounded-lg aspect-square cursor-pointer"
+              class="relative border-4 h-36 rounded-lg aspect-square cursor-pointer"
               :class="
                 images.image === character.title_image
                   ? 'border-yellow-400'
@@ -83,7 +85,7 @@
           </draggable>
           <div
             draggable="false"
-            class="relative border-4 ml-4 rounded-lg h-full aspect-square flex justify-center text-gray-400 items-center hover:border-gray-400 hover:text-gray-500 cursor-pointer"
+            class="relative border-4 rounded-lg h-36 aspect-square flex justify-center text-gray-400 items-center hover:border-gray-400 hover:text-gray-500 cursor-pointer"
             @click="openFileInput()"
           >
             <PlusIcon class="w-12" />

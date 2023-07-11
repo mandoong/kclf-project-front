@@ -71,12 +71,12 @@
       >
         <div class="flex-1">
           <div
-            class="border-2 border-gray-200 w-full rounded-lg grid grid-cols-8 gap-2 mt-10 p-2"
+            class="border-2 border-gray-200 w-full rounded-lg flex flex-wrap gap-2 mt-10 p-2"
           >
             <div
               v-for="file in previewUrls"
               :key="file"
-              class="border-4 rounded-lg aspect-square relative"
+              class="border-4 rounded-lg aspect-square relative h-36"
               :class="
                 titleImage.name === file.file.name ? 'border-yellow-400' : ''
               "
@@ -95,7 +95,7 @@
               </div>
             </div>
             <div
-              class="relative border-4 rounded-lg aspect-square flex justify-center text-gray-400 items-center hover:border-gray-400 hover:text-gray-500 cursor-pointer"
+              class="relative border-4 h-36 rounded-lg aspect-square flex justify-center text-gray-400 items-center hover:border-gray-400 hover:text-gray-500 cursor-pointer"
               @click="openFileInput()"
             >
               <PlusIcon class="w-12" />
@@ -156,6 +156,13 @@
         </div>
       </ManagerModal>
     </Transition>
+
+    <ManagerModal :onModal="onManyModal">
+      <div class="flex justify-center items-center h-20 text-xl text-center">
+        이미지가 너무 많습니다.<br />
+        한번에 10개 이하의 이미지만 <br />업로드 해주세요.
+      </div>
+    </ManagerModal>
   </div>
 </template>
 
@@ -177,6 +184,7 @@ export default {
       onModal: false,
       onUploadModal: false,
       onDuplicateModal: false,
+      onManyModal: false,
     };
   },
 
@@ -240,6 +248,13 @@ export default {
 
       if (!this.fileList) {
         return (this.noFile = true);
+      }
+
+      if (this.fileList.length > 10) {
+        this.onManyModal = true;
+        return setTimeout(() => {
+          this.onManyModal = false;
+        }, 2000);
       }
 
       const formData = new FormData();
