@@ -3,7 +3,7 @@
     <Subtitle :isBack="true">투표 관리</Subtitle>
     <ManualTextBox>
       <div class="font-bold">투표 관리 메뉴입니다.</div>
-      현재 투표 순위를 확인하고 결과 페이지를 미리볼수 있습니다..<br /><br />
+      현재 투표 순위를 확인하고 결과 페이지를 미리볼수 있습니다.<br /><br />
       캐릭터 순위 <br />
       <div class="indent-4">
         - 캐릭터 순위는 실시간으로 적용되며 현재 시점에 따른 결과 페이지를
