@@ -4,7 +4,19 @@
     <ContentTable>
       <template v-slot:head>
         <tr class="h-10 truncate text-left">
-          <th class="pl-4 w-[5%]"></th>
+          <th class="w-[5%]" @click="onClickAllcheck">
+            <div
+              class="border-2 rounded-sm w-5 h-5 mx-auto flex justify-center items-center"
+              :class="isAllChecked() ? 'bg-blue-400 border-blue-400' : ''"
+            >
+              <Transition
+                enter-from-class="opacity-0"
+                enter-active-class="transition-all"
+              >
+                <CheckIcon v-show="isAllChecked()" class="h-5 w-5 text-white" />
+              </Transition>
+            </div>
+          </th>
           <th class="pl-4 w-[10%]">ID</th>
           <th class="px-4 w-[20%]">이름</th>
           <th class="px-4 w-[20%]">현재 득표수</th>
@@ -144,6 +156,20 @@ export default {
         this.deleteSuccess = false;
         this.fetch();
       }, 2000);
+    },
+
+    isAllChecked() {
+      return this.selectList.length === this.characters.length;
+    },
+
+    onClickAllcheck() {
+      if (this.selectList.length) {
+        this.selectList = [];
+      } else {
+        this.selectList = this.characters.map((e) => {
+          return e.id;
+        });
+      }
     },
   },
   components: { ContentTable, Subtitle, dayjs, CheckIcon, ManagerModal },
