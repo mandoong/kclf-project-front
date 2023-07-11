@@ -121,7 +121,7 @@
             v-if="selectCharacters[index]"
           >
             <img
-              class="w-[90%] rounded-full aspect-square z-0"
+              class="w-[90%] rounded-full object-cover aspect-square z-0"
               :src="selectCharacters[index].title_image"
             />
           </div>
