@@ -159,7 +159,10 @@ export default {
     },
 
     isAllChecked() {
-      return this.selectList.length === this.characters.length;
+      return (
+        this.selectList.length !== 0 &&
+        this.selectList.length === this.characters.length
+      );
     },
 
     onClickAllcheck() {
