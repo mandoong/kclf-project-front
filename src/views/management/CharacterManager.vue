@@ -127,7 +127,7 @@ export default {
     },
 
     dateFormat(date) {
-      return dayjs(date).format("YYYY-MM-DD  HH:MM");
+      return dayjs(date).format("YYYY-MM-DD HH:mm");
     },
 
     isChecked(id) {
