@@ -136,10 +136,23 @@
       leave-to-class="opacity-0"
       leave-active-class="transition-all"
     >
-      <ManagerModal :onModal="onUploadqModal">
+      <ManagerModal :onModal="onUploadModal">
         <div class="flex justify-center items-center h-20 text-xl">
           이미지 파일 용량이 너무 큽니다.<br />
           5MB 이하의 이미지만 허용가능합니다.
+        </div>
+      </ManagerModal>
+    </Transition>
+    <Transition
+      enter-from-class="opacity-0 "
+      enter-active-class="transition-all"
+      leave-to-class="opacity-0"
+      leave-active-class="transition-all"
+    >
+      <ManagerModal :onModal="onDuplicateModal">
+        <div class="flex justify-center items-center h-20 text-xl">
+          중복된 이미지가 있습니다.<br />
+          이미지를 다시 확인해주세요.
         </div>
       </ManagerModal>
     </Transition>
@@ -162,7 +175,8 @@ export default {
       noName: false,
       noFile: false,
       onModal: false,
-      onUploadqModal: false,
+      onUploadModal: false,
+      onDuplicateModal: false,
     };
   },
 
@@ -174,9 +188,16 @@ export default {
 
       for (const i of files) {
         if (i.size >= 5242880) {
-          this.onUploadqModal = true;
+          this.onUploadModal = true;
           setTimeout(() => {
-            this.onUploadqModal = false;
+            this.onUploadModal = false;
+          }, 2000);
+        }
+
+        if (this.fileList.some((e) => e.name === i.name)) {
+          this.onDuplicateModal = true;
+          return setTimeout(() => {
+            this.onDuplicateModal = false;
           }, 2000);
         }
       }

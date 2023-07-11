@@ -25,7 +25,10 @@
     <div class="bg-white w-full p-10 text-lg flex flex-col">
       <div class="flex h-10 items-center">
         <div class="w-48">캐릭터 이름</div>
-        <div>{{ character.name }}</div>
+        <input
+          class="border-gray-400 w-48 border rounded-lg px-2 h-8"
+          v-model="character.name"
+        />
       </div>
 
       <div class="flex h-10 items-center">
@@ -95,9 +98,12 @@
       </div>
 
       <div class="w-full h-20 flex justify-center gap-10 mt-20">
-        <!-- <button class="bg-blue-500 text-white rounded-md h-16 px-10">
-          대표 이미지 변경
-        </button> -->
+        <button
+          class="bg-blue-500 text-white rounded-md h-16 px-10"
+          @click="onChangeNameModal = true"
+        >
+          캐릭터 이름변경
+        </button>
 
         <button
           class="bg-red-500 text-white rounded-md h-16 px-10"
@@ -156,6 +162,18 @@
         5MB 이하의 이미지만 허용가능합니다.
       </div>
     </ManagerModal>
+
+    <ManagerModal
+      :onModal="onChangeNameModal"
+      :onButton="true"
+      @close="onChangeNameModal = false"
+      @submit="onClickChangeCharacterName"
+    >
+      <div class="h-32 flex justify-center items-center text-center">
+        해당 캐릭터이름을 '{{ character.name }}' 으로 <br />
+        변경 하시겠습니까?
+      </div>
+    </ManagerModal>
   </div>
 </template>
 
@@ -180,6 +198,7 @@ export default {
       onDeleteImageModal: false,
       onTitleModal: false,
       onDeleteCharacterModal: false,
+      onChangeNameModal: false,
       isImage: null,
       onUploadModal: false,
       dragging: false,
@@ -271,6 +290,16 @@ export default {
 
     dateChange(date) {
       return dayjs(date).format("YYYY-MM-DD  HH:mm");
+    },
+
+    async onClickChangeCharacterName() {
+      await Character.ChangeCharacterName(
+        this.character.id,
+        this.character.name
+      );
+
+      this.onChangeNameModal = false;
+      this.fetch();
     },
   },
   components: {

@@ -29,6 +29,12 @@ export const Character = {
       .catch((err) => err);
   },
 
+  ChangeCharacterName: async (id, data) => {
+    return API.post(`/character/${id}/name`, { name: data })
+      .then((res) => res)
+      .catch((err) => err);
+  },
+
   GetCharacterById: async (id) => {
     return API.get(`/character/get/${id}`)
       .then((res) => res)
