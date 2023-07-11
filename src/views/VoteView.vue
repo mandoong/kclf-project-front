@@ -109,7 +109,7 @@
           ></IconBorderYellow>
           <div
             v-if="selectCharacters[index]"
-            class="absolute w-[25%] flex justify-center items-center rounded-full -top-[5%] right-[5%] aspect-square bg-[#FFDA22] z-20"
+            class="absolute w-[25%] flex justify-center items-center rounded-full -top-[5%] right-[0%] aspect-square bg-[#FFDA22] z-20"
             @click="onClickSelectCharacter(selectCharacters[index].id)"
           >
             <XMarkIcon class="text-gray-600"></XMarkIcon>
@@ -117,11 +117,11 @@
           <div v-if="!selectCharacters[index]" class="z-10">PICK</div>
 
           <div
-            class="aspect-square overflow-hidden z-10"
+            class="aspect-square overflow-hidden z-10 flex justify-center items-center"
             v-if="selectCharacters[index]"
           >
             <img
-              class="w-full aspect-square z-10"
+              class="w-[90%] rounded-full aspect-square z-0"
               :src="selectCharacters[index].title_image"
             />
           </div>
