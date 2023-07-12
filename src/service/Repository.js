@@ -92,6 +92,12 @@ export const Character = {
       .then((res) => res)
       .catch((err) => err);
   },
+
+  changeCharacterOrder: async (ids) => {
+    return API.post(`/character/order`, { ids: ids })
+      .then((res) => res)
+      .catch((err) => err);
+  },
 };
 
 export const Service = {

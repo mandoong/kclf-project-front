@@ -7,9 +7,8 @@
         <thead class="bg-[#59677e] text-white sticky top-0 z-20">
           <slot name="head"></slot>
         </thead>
-        <tbody class="divide-y divide-gray-300 bg-white">
-          <slot name="body"></slot>
-        </tbody>
+
+        <slot name="body"></slot>
       </table>
     </div>
   </div>

@@ -22,7 +22,7 @@
     <ContentTable>
       <template v-slot:head>
         <tr class="h-10 truncate text-left">
-          <th class="w-[5%]" @click="onClickAllcheck">
+          <th class="w-[5%]" @click="onClickAllCheck">
             <div
               class="border-2 rounded-sm w-5 h-5 mx-auto flex justify-center items-center"
               :class="isAllChecked() ? 'bg-blue-400 border-blue-400' : ''"
@@ -36,42 +36,59 @@
             </div>
           </th>
           <th class="pl-4 w-[10%]">ID</th>
+          <th class="pl-4 w-[10%]">순번</th>
           <th class="px-4 w-[20%]">이름</th>
           <th class="px-4 w-[20%]">현재 득표수</th>
           <th class="px-4 w-[20%]">생성 날짜</th>
           <th class="px-4 w-[20%]">수정 날짜</th>
+          <th class="px-4 w-[20%]">순서변경</th>
         </tr>
       </template>
       <template v-slot:body>
-        <tr
-          class="h-8 truncate cursor-pointer hover:bg-gray-300"
-          v-for="item in characters"
-          :key="item"
-          @click="$router.push(`/_admin/character/${item.id}`)"
+        <draggable
+          class="divide-y divide-gray-300 bg-white"
+          :list="characters"
+          @change="onChangeCharacterOrder"
+          tag="tbody"
+          handle=".handle"
         >
-          <td class="px-4 relative" @click.stop="onClickChecked(item.id)">
-            <div
-              class="border-2 rounded-sm w-5 h-5 mx-auto flex justify-center items-center"
-              :class="isChecked(item.id) ? 'bg-blue-400 border-blue-400' : ''"
-            >
-              <Transition
-                enter-from-class="opacity-0"
-                enter-active-class="transition-all"
+          <tr
+            class="h-8 truncate cursor-pointer hover:bg-gray-300"
+            v-for="item in characters"
+            :key="item"
+            @click="$router.push(`/_admin/character/${item.id}`)"
+          >
+            <td class="px-4 relative" @click.stop="onClickChecked(item.id)">
+              <div
+                class="border-2 rounded-sm w-5 h-5 mx-auto flex justify-center items-center"
+                :class="isChecked(item.id) ? 'bg-blue-400 border-blue-400' : ''"
               >
-                <CheckIcon
-                  v-show="isChecked(item.id)"
-                  class="h-5 w-5 text-white"
-                />
-              </Transition>
-            </div>
-          </td>
-          <td class="px-4">{{ item.id }}</td>
-          <td class="px-4">{{ item.name }}</td>
-          <td class="px-4">{{ item.vote_count }}</td>
+                <Transition
+                  enter-from-class="opacity-0"
+                  enter-active-class="transition-all"
+                >
+                  <CheckIcon
+                    v-show="isChecked(item.id)"
+                    class="h-5 w-5 text-white"
+                  />
+                </Transition>
+              </div>
+            </td>
+            <td class="px-4">{{ item.id }}</td>
+            <td class="px-4">NO. {{ item.order_number }}</td>
+            <td class="px-4">{{ item.name }}</td>
+            <td class="px-4">{{ item.vote_count }}</td>
 
-          <td class="px-4">{{ dateFormat(item.created_at) }}</td>
-          <td class="px-4">{{ dateFormat(item.updated_at) }}</td>
-        </tr>
+            <td class="px-4">{{ dateFormat(item.created_at) }}</td>
+            <td class="px-4">{{ dateFormat(item.updated_at) }}</td>
+
+            <td
+              class="px-4 h-8 flex items-center justify-center handle cursor-move"
+            >
+              <Bars3Icon class="h-5 w-5 text-gray-500" />
+            </td>
+          </tr>
+        </draggable>
       </template>
     </ContentTable>
 
@@ -99,11 +116,12 @@
 
 <script>
 import ContentTable from "../../components/ContentTable.vue";
-import { CheckIcon } from "@heroicons/vue/24/outline";
+import { CheckIcon, Bars3Icon } from "@heroicons/vue/24/outline";
 import Subtitle from "../../components/Subtitle.vue";
 import ManagerModal from "../../components/ManagerModal.vue";
 import dayjs from "dayjs";
 import { Auth, Character } from "../../service/Repository";
+import { VueDraggableNext } from "vue-draggable-next";
 
 export default {
   data() {
@@ -167,7 +185,7 @@ export default {
       );
     },
 
-    onClickAllcheck() {
+    onClickAllCheck() {
       if (this.selectList.length) {
         this.selectList = [];
       } else {
@@ -176,7 +194,25 @@ export default {
         });
       }
     },
+
+    async onChangeCharacterOrder() {
+      const ids = this.characters.map((e) => {
+        return e.id;
+      });
+
+      const result = await Character.changeCharacterOrder(ids);
+
+      this.fetch();
+    },
   },
-  components: { ContentTable, Subtitle, dayjs, CheckIcon, ManagerModal },
+  components: {
+    ContentTable,
+    Subtitle,
+    dayjs,
+    CheckIcon,
+    ManagerModal,
+    draggable: VueDraggableNext,
+    Bars3Icon,
+  },
 };
 </script>
