@@ -126,7 +126,7 @@ router.beforeEach(async (to, from, next) => {
     const now = dayjs();
     let daydiff = dayjs(voteDate).diff(now, "day");
 
-    if (daydiff <= 0) {
+    if (daydiff < 0) {
       next("/home/vote/result");
     } else {
       next();
