@@ -117,12 +117,9 @@ router.beforeEach(async (to, from, next) => {
       next("/_admin/login");
     }
   } else if (to.meta.voteAt) {
-    let voteDate = window.localStorage.getItem("voteDate");
-    if (!voteDate) {
-      const result = await Service.GetDocumentSetting();
-      voteDate = result.data.vote_at;
-      window.localStorage.setItem("voteDate", voteDate);
-    }
+    const result = await Service.GetDocumentSetting();
+    const voteDate = result.data.vote_at;
+    window.localStorage.setItem("voteDate", voteDate);
     const now = dayjs();
     let daydiff = dayjs(voteDate).diff(now, "day");
 
