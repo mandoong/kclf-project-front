@@ -28,7 +28,6 @@ const router = createRouter({
       path: "/home",
       name: "home",
       component: HomeContainer,
-      meta: { voteAt: true },
       children: [
         {
           path: "main",
@@ -125,10 +124,10 @@ router.beforeEach(async (to, from, next) => {
       window.localStorage.setItem("voteDate", voteDate);
     }
     const now = dayjs();
-    let daydiff = dayjs(voteDate).diff(now, "day", true);
+    let daydiff = dayjs(voteDate).diff(now, "day");
 
     if (daydiff <= 0) {
-      next("/vote/result");
+      next("/home/vote/result");
     } else {
       next();
     }
