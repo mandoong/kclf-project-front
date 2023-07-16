@@ -119,7 +119,6 @@ router.beforeEach(async (to, from, next) => {
   } else if (to.meta.voteAt) {
     const result = await Service.GetDocumentSetting();
     const voteDate = result.data.vote_at;
-    window.localStorage.setItem("voteDate", voteDate);
     const now = dayjs();
     let daydiff = dayjs(voteDate).diff(now, "day");
 
