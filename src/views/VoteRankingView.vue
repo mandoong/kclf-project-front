@@ -65,7 +65,9 @@
                 class="bg-[#FDFFE3] h-[20%]"
                 :style="{
                   width: `${
-                    (item.vote_count / characters[0].vote_count) * 100 + 10
+                    (item.vote_user.length / characters[0].vote_user.length) *
+                      100 +
+                    10
                   }%`,
                   transitionDelay: `${i * 100}ms`,
                 }"
@@ -82,7 +84,7 @@
                   transitionDelay: `${i * 100 + 300}ms`,
                 }"
               >
-                {{ ((item.vote_count / count) * 100).toFixed() }} %
+                {{ ((item.vote_user.length / count) * 100).toFixed() }} %
               </div>
             </Transition>
           </div>

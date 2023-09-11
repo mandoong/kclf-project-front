@@ -145,6 +145,7 @@
     <VoteModal
       v-if="onVoteModal"
       :count="selectCharacters.length"
+      :selectCharacters="selectCharacters"
       @voteCharacter="onClickVoteCharacter"
       @close="onClickClose"
     />

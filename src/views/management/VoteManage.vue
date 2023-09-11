@@ -33,7 +33,7 @@
         <div class="w-20">{{ i + 1 }}</div>
         <div class="w-48">{{ character.name }}</div>
         <div>
-          {{ character.vote_count }}
+          {{ character.vote_user.length }}
         </div>
       </div>
       <div v-if="characters && !characters.length" class="my-10">

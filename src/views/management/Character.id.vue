@@ -33,7 +33,7 @@
 
       <div class="flex h-10 items-center">
         <div class="w-48">투표 받은 수</div>
-        <div>{{ character.vote_count }}</div>
+        <div>{{ character.vote_user.length }}</div>
       </div>
 
       <div class="flex h-10 items-center">

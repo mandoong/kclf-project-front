@@ -77,7 +77,7 @@
             <td class="px-4">{{ item.id }}</td>
             <td class="px-4">NO. {{ item.order_number }}</td>
             <td class="px-4">{{ item.name }}</td>
-            <td class="px-4">{{ item.vote_count }}</td>
+            <td class="px-4">{{ item.vote_user.length }}</td>
 
             <td class="px-4">{{ dateFormat(item.created_at) }}</td>
             <td class="px-4">{{ dateFormat(item.updated_at) }}</td>

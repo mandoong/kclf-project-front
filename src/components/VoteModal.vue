@@ -4,10 +4,15 @@
   >
     <div
       class="w-[45vh] bg-[#FFE266] flex items-center flex-col rounded-[3vh]"
-      :class="!isSms ? 'aspect-[84/81]' : 'aspect-[84/51]'"
+      :class="
+        currentMadal === 'vote' || currentMadal === 'complete'
+          ? 'aspect-[84/51]'
+          : 'aspect-[84/81]'
+      "
     >
+      <!-- 투표 확인 -->
       <div
-        v-if="!isVoteActive && isSms"
+        v-if="currentMadal === 'vote'"
         class="font-tmon text-center py-[4vh] w-full h-full flex items-center flex-col text-[2.8vh] gap-[20%]"
       >
         <Transition
@@ -28,7 +33,7 @@
           <div class="flex text-[3vh] w-full justify-center gap-[10%] delay-75">
             <div
               class="flex items-center justify-center w-[28%] aspect-[23/14] bg-white rounded-[2vh]"
-              @click="$emit('voteCharacter'), (isVoteActive = true)"
+              @click="onClickVote()"
             >
               예
             </div>
@@ -42,7 +47,11 @@
         </Transition>
       </div>
 
-      <div class="h-full w-full" v-if="!isSms">
+      <!-- 문자인증 -->
+      <div
+        class="h-full w-full"
+        v-if="currentMadal === 'auth' || currentMadal === 'verification'"
+      >
         <div
           class="flex flex-col items-center justify-between h-full w-full px-[5vh] py-[3vh] font-tmon"
         >
@@ -51,17 +60,30 @@
             <div>중복 투표를 방지하기 위해</div>
             <div>인증 후 투표가 진행됩니다.</div>
           </div>
-          <div class="flex flex-col gap-[1vh] w-full font-neo font-bold">
-            <input
-              class="px-2 h-[4.2vh] px-[1.5vh] w-full text-[2vh] border border-[#707070]"
-              placeholder="이름"
-              v-model="name"
-            />
-            <input
-              class="px-2 h-[4.2vh] px-[1.5vh] w-full text-[2vh] border border-[#707070]"
-              placeholder="전화번호"
-              v-model="phoneNum"
-            />
+          <div class="w-full" v-if="currentMadal === 'auth'">
+            <div class="flex flex-col gap-[1vh] w-full font-neo font-bold">
+              <input
+                class="px-2 h-[4.2vh] px-[1.5vh] w-full text-[2vh] border border-[#707070]"
+                placeholder="이름"
+                v-model="name"
+                @input="massage = ''"
+              />
+              <input
+                class="px-2 h-[4.2vh] px-[1.5vh] w-full text-[2vh] border border-[#707070]"
+                placeholder="전화번호"
+                v-model="phoneNum"
+                @input="massage = ''"
+              />
+            </div>
+          </div>
+          <div class="w-full" v-if="currentMadal === 'verification'">
+            <div class="flex flex-col gap-[1vh] w-full font-neo font-bold">
+              <input
+                class="px-2 h-[4.2vh] px-[1.5vh] w-full text-[2vh] border border-[#707070]"
+                placeholder="인증번호"
+                v-model="authCode"
+              />
+            </div>
           </div>
 
           <div class="flex w-full text-[1.3vh] font-neo font-bold">
@@ -77,10 +99,19 @@
           </div>
 
           <button
-            class="bg-[#EC3F3F] w-full h-[4.2vh] text-white text-[2vh] flex justify-center items-center rounded-full"
+            class="w-full h-[4.2vh] text-white text-[2vh] flex justify-center items-center rounded-full"
+            :class="isChecked ? 'bg-[#EC3F3F]' : 'bg-gray-500'"
+            @click="
+              currentMadal === 'auth' ? onClickSend() : onClickValidation()
+            "
+            @input="massage = ''"
           >
             인증하기
           </button>
+
+          <div class="text-red-500 font-neo font-bold h-[1vh] text-[1.3vh]">
+            {{ massage }}
+          </div>
 
           <div class="text-[1.3vh] font-neo font-bold">
             개인정보는 투표 종료 후 안전하게 삭제됩니다.
@@ -88,13 +119,14 @@
         </div>
       </div>
 
+      <!-- 투표완료 -->
       <Transition
         appear
         enter-from-class="opacity-0 translate-y-10"
         enter-active-class="transition-all duration-500"
       >
         <div
-          v-if="isVoteActive"
+          v-if="currentMadal === 'complete'"
           class="font-tmon text-center py-[4vh] w-full h-full flex items-center ju flex-col text-[3vh] gap-[20%]"
         >
           <div>
@@ -117,18 +149,26 @@
 import { CheckIcon, XMarkIcon } from "@heroicons/vue/24/outline";
 import RightArrow from "../assets/icon/RightArrow.vue";
 import LeftArrow from "../assets/icon/LeftArrow.vue";
+import { Character } from "../service/Repository";
 
 export default {
   props: {
     count: { type: Number },
+    selectCharacters: {
+      type: Array,
+    },
   },
   data() {
     return {
       imagesPage: 0,
-      isImage: null,
-      isVoteActive: false,
-      isSms: false,
       isChecked: false,
+      currentMadal: "vote",
+      name: null,
+      phoneNum: null,
+      validation: false,
+      massage: "",
+      authCode: "",
+      token: null,
     };
   },
 
@@ -144,6 +184,49 @@ export default {
         this.imagesPage = this.imagesPage - 1;
         this.isImage = this.character.images[this.imagesPage].image;
       }
+    },
+
+    onClickVote() {
+      this.currentMadal = "auth";
+    },
+
+    async onClickSend() {
+      if (!this.isChecked) {
+        return;
+      }
+
+      if (this.phoneNum?.length < 10 || !this.name) {
+        this.massage = "이름과 전화번호를 확인해주세요.";
+        this.validation = true;
+        return;
+      }
+
+      const data = { name: this.name, num: this.phoneNum };
+      const result = await Character.sendAuthUser(data);
+
+      if (result.status === 201) {
+        this.currentMadal = "verification";
+        this.token = result.data.token;
+      }
+    },
+
+    async onClickValidation() {
+      const characters = this.selectCharacters.map((e) => e.id);
+
+      console.log(characters);
+      const data = {
+        token: this.token,
+        authCode: this.authCode,
+        character: characters,
+      };
+
+      // const result = await Character.validationToken(data);
+
+      // if (result.status === 201) {
+      //   this.currentMadal = "complete";
+      // } else {
+      //   this.massage = "인증코드를 다시 확인해주세요.";
+      // }
     },
   },
   components: {

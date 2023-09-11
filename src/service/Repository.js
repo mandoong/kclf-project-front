@@ -98,6 +98,14 @@ export const Character = {
       .then((res) => res)
       .catch((err) => err);
   },
+
+  sendAuthUser: async (data) => {
+    return API.post(`/mobile`, data);
+  },
+
+  validationToken: async (data) => {
+    return API.post(`/mobile/token`);
+  },
 };
 
 export const Service = {
