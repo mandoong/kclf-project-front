@@ -220,13 +220,13 @@ export default {
         character: characters,
       };
 
-      // const result = await Character.validationToken(data);
+      const result = await Character.validationToken(data);
 
-      // if (result.status === 201) {
-      //   this.currentMadal = "complete";
-      // } else {
-      //   this.massage = "인증코드를 다시 확인해주세요.";
-      // }
+      if (result.status === 201) {
+        this.currentMadal = "complete";
+      } else {
+        this.massage = "인증코드를 다시 확인해주세요.";
+      }
     },
   },
   components: {
