@@ -204,9 +204,13 @@ export default {
       const data = { name: this.name, num: this.phoneNum };
       const result = await Character.sendAuthUser(data);
 
+      console.log(result.status);
+
       if (result.status === 201) {
         this.currentMadal = "verification";
         this.token = result.data.token;
+      } else {
+        this.massage = "이미 투표에 참여한 전화번호입니다.";
       }
     },
 

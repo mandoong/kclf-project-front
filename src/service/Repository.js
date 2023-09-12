@@ -100,11 +100,15 @@ export const Character = {
   },
 
   sendAuthUser: async (data) => {
-    return API.post(`/mobile`, data);
+    return API.post(`/mobile`, data)
+      .then((res) => res)
+      .catch((err) => err);
   },
 
   validationToken: async (data) => {
-    return API.post(`/mobile/token`);
+    return API.post(`/mobile/token`, data)
+      .then((res) => res)
+      .catch((err) => err);
   },
 };
 
