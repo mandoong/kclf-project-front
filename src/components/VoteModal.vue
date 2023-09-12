@@ -55,59 +55,93 @@
         <div
           class="flex flex-col items-center justify-between h-full w-full px-[5vh] py-[3vh] font-tmon"
         >
-          <div class="text-[2.8vh]">투표 인증</div>
-          <div class="text-[2vh]">
-            <div>중복 투표를 방지하기 위해</div>
-            <div>인증 후 투표가 진행됩니다.</div>
-          </div>
-          <div class="w-full" v-if="currentMadal === 'auth'">
-            <div class="flex flex-col gap-[1vh] w-full font-neo font-bold">
-              <input
-                class="px-2 h-[4.2vh] px-[1.5vh] w-full text-[2vh] border border-[#707070]"
-                placeholder="이름"
-                v-model="name"
-                @input="massage = ''"
-              />
-              <input
-                class="px-2 h-[4.2vh] px-[1.5vh] w-full text-[2vh] border border-[#707070]"
-                placeholder="전화번호"
-                v-model="phoneNum"
-                @input="massage = ''"
-              />
-            </div>
-          </div>
-          <div class="w-full" v-if="currentMadal === 'verification'">
-            <div class="flex flex-col gap-[1vh] w-full font-neo font-bold">
-              <input
-                class="px-2 h-[4.2vh] px-[1.5vh] w-full text-[2vh] border border-[#707070]"
-                placeholder="인증번호"
-                v-model="authCode"
-              />
-            </div>
-          </div>
-
-          <div class="flex w-full text-[1.3vh] font-neo font-bold">
-            <button
-              class="h-full aspect-[1/1] border border-[#707070]"
-              :class="isChecked ? 'bg-blue-500' : 'bg-white'"
-              @click="isChecked = !isChecked"
-            >
-              <CheckIcon class="text-white"></CheckIcon>
-            </button>
-            <div class="ml-[30px]">[필수] 개인정보활용에 동의합니다.</div>
-            <button class="ml-[30px] text-[#EC3F3F]">자세히 보기</button>
-          </div>
-
-          <button
-            class="w-full h-[4.2vh] text-white text-[2vh] flex justify-center items-center rounded-full"
-            :class="isChecked ? 'bg-[#EC3F3F]' : 'bg-gray-500'"
-            @click="
-              currentMadal === 'auth' ? onClickSend() : onClickValidation()
-            "
-            @input="massage = ''"
+          <Transition
+            appear
+            enter-from-class="opacity-0 translate-y-10"
+            enter-active-class="transition-all duration-500"
           >
-            인증하기
-          </button>
+            <div class="text-[2.8vh]">투표 인증</div>
+          </Transition>
+          <Transition
+            appear
+            enter-from-class="opacity-0 translate-y-10"
+            enter-active-class="transition-all duration-500"
+          >
+            <div class="text-[2vh]">
+              <div>중복 투표를 방지하기 위해</div>
+              <div>인증 후 투표가 진행됩니다.</div>
+            </div>
+          </Transition>
+          <Transition
+            appear
+            enter-from-class="opacity-0 translate-y-10"
+            enter-active-class="transition-all duration-500"
+          >
+            <div class="w-full" v-if="currentMadal === 'auth'">
+              <div class="flex flex-col gap-[1vh] w-full font-neo font-bold">
+                <input
+                  class="px-2 h-[4.2vh] px-[1.5vh] w-full text-[2vh] border border-[#707070]"
+                  placeholder="이름"
+                  v-model="name"
+                  @input="massage = ''"
+                />
+                <input
+                  class="px-2 h-[4.2vh] px-[1.5vh] w-full text-[2vh] border border-[#707070]"
+                  placeholder="전화번호"
+                  v-model="phoneNum"
+                  @input="massage = ''"
+                />
+              </div>
+            </div>
+          </Transition>
+          <Transition
+            appear
+            enter-from-class="opacity-0 translate-y-10"
+            enter-active-class="transition-all duration-500"
+          >
+            <div class="w-full" v-if="currentMadal === 'verification'">
+              <div class="flex flex-col gap-[1vh] w-full font-neo font-bold">
+                <input
+                  class="px-2 h-[4.2vh] px-[1.5vh] w-full text-[2vh] border border-[#707070]"
+                  placeholder="인증번호"
+                  v-model="authCode"
+                />
+              </div>
+            </div>
+          </Transition>
+          <Transition
+            appear
+            enter-from-class="opacity-0 translate-y-10"
+            enter-active-class="transition-all duration-500"
+          >
+            <div class="flex w-full text-[1.3vh] font-neo font-bold">
+              <button
+                class="h-full aspect-[1/1] border border-[#707070]"
+                :class="isChecked ? 'bg-blue-500' : 'bg-white'"
+                @click="isChecked = !isChecked"
+              >
+                <CheckIcon class="text-white"></CheckIcon>
+              </button>
+              <div class="ml-[30px]">[필수] 개인정보활용에 동의합니다.</div>
+              <button class="ml-[30px] text-[#EC3F3F]">자세히 보기</button>
+            </div>
+          </Transition>
+          <Transition
+            appear
+            enter-from-class="opacity-0 translate-y-10"
+            enter-active-class="transition-all duration-500"
+          >
+            <button
+              class="w-full h-[4.2vh] text-white text-[2vh] flex justify-center items-center rounded-full"
+              :class="isChecked ? 'bg-[#EC3F3F]' : 'bg-gray-500'"
+              @click="
+                currentMadal === 'auth' ? onClickSend() : onClickValidation()
+              "
+              @input="massage = ''"
+            >
+              인증하기
+            </button>
+          </Transition>
 
           <div class="text-red-500 font-neo font-bold h-[1vh] text-[1.3vh]">
             {{ massage }}
