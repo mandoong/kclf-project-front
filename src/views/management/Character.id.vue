@@ -22,7 +22,7 @@
       </div>
     </ManualTextBox>
 
-    <div class="bg-white w-full p-10 text-lg flex flex-col">
+    <div v-if="character" class="bg-white w-full p-10 text-lg flex flex-col">
       <div class="flex h-10 items-center">
         <div class="w-48">캐릭터 이름</div>
         <input
@@ -33,7 +33,7 @@
 
       <div class="flex h-10 items-center">
         <div class="w-48">투표 받은 수</div>
-        <div>{{ character.vote_user.length }}</div>
+        <div>{{ character.vote_user ? character.vote_user.length : "" }}</div>
       </div>
 
       <div class="flex h-10 items-center">
@@ -115,7 +115,6 @@
         </button>
       </div>
     </div>
-    <div></div>
 
     <ManagerModal
       :onModal="onDeleteImageModal"

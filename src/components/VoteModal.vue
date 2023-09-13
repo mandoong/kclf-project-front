@@ -1,6 +1,7 @@
 <template>
   <main
     class="w-full h-screen bg-black/60 flex justify-center items-center absolute top-0 z-30"
+    @click="$emit('close')"
   >
     <div
       class="w-[45vh] bg-[#FFE266] flex items-center flex-col rounded-[3vh]"
@@ -9,6 +10,7 @@
           ? 'aspect-[84/51]'
           : 'aspect-[84/81]'
       "
+      @click.stop
     >
       <!-- 투표 확인 -->
       <div
